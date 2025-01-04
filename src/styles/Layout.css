@@ -2,10 +2,14 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #000000;
+    color: #FFFFFF;
   }
   
   .main-content {
     flex: 1;
     padding: 2rem;
-    background-color: #f5f5f5;
+    background-color: #000000;
   }
+  
+  

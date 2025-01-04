@@ -6,11 +6,11 @@ const Navbar = () => {
   return (
     <nav style={{
       backgroundColor: theme.colors.background,
-      padding: '1rem',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+      padding: '1rem 2rem',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center'
+      alignItems: 'center',
+      borderBottom: '1px solid rgba(255,255,255,0.1)'
     }}>
       <img 
         src="/lava-show-logo.png" 
@@ -19,13 +19,25 @@ const Navbar = () => {
           height: '40px'
         }}
       />
-      <h1 style={{
-        color: theme.colors.primary,
-        fontSize: '1.5rem',
-        margin: 0
+      <div style={{
+        display: 'flex',
+        gap: '2rem',
+        alignItems: 'center'
       }}>
-        Chat with Tinna
-      </h1>
+        <a href="#" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Locations</a>
+        <a href="#" style={{ color: '#FFFFFF', textDecoration: 'none' }}>Giftcards</a>
+        <a href="#" style={{ color: '#FFFFFF', textDecoration: 'none' }}>About us</a>
+        <button style={{
+          backgroundColor: theme.colors.primary,
+          color: '#FFFFFF',
+          border: 'none',
+          padding: '0.75rem 1.5rem',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}>
+          GET TICKETS NOW
+        </button>
+      </div>
     </nav>
   );
 };
