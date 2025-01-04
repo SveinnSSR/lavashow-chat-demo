@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
 import Layout from './components/Layout';
-import ChatWidget from './components/ChatWidget';
+import LavaShowDemo from './components/LavaShowDemo';
 
 function App() {
   return (
     <Layout>
-      <div className="app-container">
-        <ChatWidget />
-      </div>
+      <LavaShowDemo />
     </Layout>
   );
 }
