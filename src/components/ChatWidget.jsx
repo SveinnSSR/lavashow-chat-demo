@@ -35,22 +35,24 @@ const ChatWidget = ({
             gap: '8px'
         }}>
             <img 
-                src="/tinna.png" 
+                src="/images/tinna.png" 
                 alt="Tinna"
                 style={{
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
-                    marginTop: '4px'
+                    marginTop: '4px',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                 }}
             />
             <div style={{
                 padding: '12px 16px',
                 borderRadius: '16px',
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#f5f5f5',
                 display: 'flex',
                 gap: '4px',
-                alignItems: 'center'
+                alignItems: 'center',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
             }}>
                 <span style={{
                     height: '8px',
@@ -132,9 +134,10 @@ const ChatWidget = ({
             bottom: '20px',
             right: '20px',
             width: isMinimized ? '260px' : '400px',
-            backgroundColor: '#FF4B12', // Lava Show's orange color
+            backgroundColor: '#FF4B12',
             borderRadius: isMinimized ? '40px' : '12px',
-            boxShadow: '0 2px 12px rgba(0, 0, 0, 0.15)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(10px)',
             fontFamily: theme.fonts.body,
             overflow: 'hidden',
             transition: 'all 0.3s ease'
@@ -151,17 +154,19 @@ const ChatWidget = ({
                     backgroundColor: '#FF4B12',
                     width: '100%',
                     boxSizing: 'border-box',
-                    flexDirection: isMinimized ? 'row' : 'column'
+                    flexDirection: isMinimized ? 'row' : 'column',
+                    boxShadow: '0 2px 10px rgba(255, 75, 18, 0.2)'
                 }}
             >
                 <img 
-                    src="/tinna.png" 
+                    src="/images/tinna.png" 
                     alt="Tinna" 
                     style={{ 
                         height: isMinimized ? '32px' : '60px',
                         width: isMinimized ? '32px' : '60px',
                         borderRadius: '50%',
-                        objectFit: 'cover'
+                        objectFit: 'cover',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
                     }}
                 />
                 <div style={{
@@ -173,13 +178,15 @@ const ChatWidget = ({
                     <span style={{ 
                         color: 'white',
                         fontSize: isMinimized ? '15px' : '16px',
-                        fontWeight: '500'
+                        fontWeight: '600',
+                        letterSpacing: '0.5px'
                     }}>
                         Tinna
                     </span>
                     <span style={{ 
-                        color: '#e0e0e0',
-                        fontSize: isMinimized ? '13px' : '14px'
+                        color: '#ffffff',
+                        fontSize: isMinimized ? '13px' : '14px',
+                        opacity: 0.9
                     }}>
                         LAVA SHOW
                     </span>
@@ -190,7 +197,8 @@ const ChatWidget = ({
                     marginLeft: isMinimized ? 'auto' : '0',
                     position: isMinimized ? 'relative' : 'absolute',
                     right: isMinimized ? 'auto' : '16px',
-                    top: isMinimized ? 'auto' : '16px'
+                    top: isMinimized ? 'auto' : '16px',
+                    opacity: 0.8
                 }}>
                     {isMinimized ? '△' : '▽'}
                 </span>
@@ -201,9 +209,10 @@ const ChatWidget = ({
                 <>
                     <div style={{
                         height: '400px',
-                        backgroundColor: 'white',
+                        backgroundColor: '#fff',
                         overflowY: 'auto',
-                        padding: '16px'
+                        padding: '16px',
+                        backgroundImage: 'linear-gradient(to bottom, #f8f8f8, #ffffff)'
                     }}>
                         {messages.map((msg, index) => (
                             <div key={index} style={{
@@ -215,13 +224,14 @@ const ChatWidget = ({
                             }}>
                                 {msg.type === 'bot' && (
                                     <img 
-                                        src="/tinna.png" 
+                                        src="/images/tinna.png" 
                                         alt="Tinna"
                                         style={{
                                             width: '30px',
                                             height: '30px',
                                             borderRadius: '50%',
-                                            marginTop: '4px'
+                                            marginTop: '4px',
+                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                                         }}
                                     />
                                 )}
@@ -229,10 +239,14 @@ const ChatWidget = ({
                                     maxWidth: '70%',
                                     padding: '12px 16px',
                                     borderRadius: '16px',
-                                    backgroundColor: msg.type === 'user' ? '#FF4B12' : '#f0f0f0',
+                                    backgroundColor: msg.type === 'user' ? '#FF4B12' : '#f8f8f8',
                                     color: msg.type === 'user' ? 'white' : '#333333',
                                     fontSize: '14px',
-                                    lineHeight: '1.5'
+                                    lineHeight: '1.5',
+                                    boxShadow: msg.type === 'user' ? 
+                                        '0 2px 8px rgba(255, 75, 18, 0.1)' : 
+                                        '0 2px 8px rgba(0, 0, 0, 0.05)',
+                                    transition: 'all 0.2s ease'
                                 }}>
                                     {msg.type === 'bot' ? (
                                         <MessageFormatter message={msg.content} />
@@ -250,7 +264,7 @@ const ChatWidget = ({
                     <div style={{
                         padding: '12px 16px',
                         backgroundColor: 'white',
-                        borderTop: '1px solid #eee',
+                        borderTop: '1px solid rgba(0,0,0,0.1)',
                         display: 'flex',
                         gap: '8px'
                     }}>
@@ -262,11 +276,16 @@ const ChatWidget = ({
                             placeholder={language === 'en' ? "Type your message..." : "Skrifaðu skilaboð..."}
                             style={{
                                 flex: 1,
-                                padding: '8px 16px',
+                                padding: '10px 16px',
                                 borderRadius: '20px',
                                 border: '1px solid #ddd',
                                 outline: 'none',
-                                fontSize: '14px'
+                                fontSize: '14px',
+                                transition: 'all 0.2s ease',
+                                ':focus': {
+                                    borderColor: '#FF4B12',
+                                    boxShadow: '0 0 0 2px rgba(255, 75, 18, 0.1)'
+                                }
                             }}
                         />
                         <button
@@ -275,11 +294,18 @@ const ChatWidget = ({
                                 backgroundColor: '#FF4B12',
                                 color: 'white',
                                 border: 'none',
-                                padding: '8px 20px',
+                                padding: '10px 24px',
                                 borderRadius: '20px',
                                 cursor: 'pointer',
                                 fontSize: '14px',
-                                fontWeight: '500'
+                                fontWeight: '600',
+                                transition: 'all 0.3s ease',
+                                boxShadow: '0 2px 4px rgba(255, 75, 18, 0.2)',
+                                ':hover': {
+                                    backgroundColor: '#E64400',
+                                    transform: 'translateY(-1px)',
+                                    boxShadow: '0 4px 12px rgba(255, 75, 18, 0.3)'
+                                }
                             }}
                         >
                             {language === 'en' ? 'Send' : 'Senda'}
