@@ -15,22 +15,22 @@ const LavaShowDemo = () => {
 
   return (
     <div className="relative bg-black text-white">
-      {/* Hero Section with Parallax */}
+      {/* Hero Section */}
       <div className="relative min-h-screen flex flex-col justify-center">
-        {/* Background Image with Parallax */}
+        {/* Background Image */}
         <img 
           src="/images/icelandic-lava-show.jpg" 
           alt="Lava Background"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
           style={{
             transform: `translateY(${scroll * 0.3}px)`,
-            opacity: 0.7 // Increased from 0.4 to 0.7
+            opacity: 0.8  // Slightly increased opacity
           }}
         />
 
-        {/* Dark overlay for text readability */}
+        {/* Gradient overlay for text readability */}
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"
           style={{
             transform: `translateY(${scroll * 0.3}px)`
           }}
@@ -68,25 +68,34 @@ const LavaShowDemo = () => {
         </div>
       </div>
 
-      {/* Content Sections with better spacing and contrast */}
+      {/* Content Sections */}
       <div className="relative z-10">
         {/* Experience Section */}
-        <section className="py-32 px-8 bg-black/95"> {/* Increased padding and darker background */}
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-bold mb-16 text-[#FF4B12]">
-              Experience Real Molten Lava
-            </h2>
-            <div className="grid md:grid-cols-2 gap-16"> {/* Increased gap */}
-              <div className="bg-black/50 p-8 rounded-lg"> {/* Added container */}
-                <h3 className="text-3xl font-semibold mb-6 text-white">Unique Demonstrations</h3>
-                <p className="text-xl text-gray-300">
+        <section className="py-40 bg-gradient-to-b from-black/95 to-black"> {/* Increased padding */}
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="mb-24"> {/* Increased margin */}
+              <h2 className="text-5xl md:text-6xl font-bold mb-8 text-[#FF4B12]">
+                Experience Real Molten Lava
+              </h2>
+              <div className="h-1 w-32 bg-[#FF4B12] opacity-50"></div> {/* Decorative line */}
+            </div>
+
+            {/* Demo Cards */}
+            <div className="grid md:grid-cols-2 gap-20"> {/* Increased gap */}
+              <div className="bg-black/60 p-10 rounded-lg border border-gray-800"> {/* Added border */}
+                <h3 className="text-3xl font-semibold mb-6 text-white">
+                  Unique Demonstrations
+                </h3>
+                <p className="text-xl leading-relaxed text-gray-300">
                   Watch as our experts manipulate real molten lava, heated to over 1,000°C, 
                   creating a spectacular display of nature's raw power.
                 </p>
               </div>
-              <div className="bg-black/50 p-8 rounded-lg"> {/* Added container */}
-                <h3 className="text-3xl font-semibold mb-6 text-white">Interactive Learning</h3>
-                <p className="text-xl text-gray-300">
+              <div className="bg-black/60 p-10 rounded-lg border border-gray-800"> {/* Added border */}
+                <h3 className="text-3xl font-semibold mb-6 text-white">
+                  Interactive Learning
+                </h3>
+                <p className="text-xl leading-relaxed text-gray-300">
                   Discover the science behind volcanoes and learn about Iceland's unique 
                   geological features through our engaging presentations.
                 </p>
@@ -96,12 +105,15 @@ const LavaShowDemo = () => {
         </section>
 
         {/* Safety Section */}
-        <section className="py-32 px-8 bg-gradient-to-b from-black/90 to-black"> {/* Added gradient */}
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white">
-              Safety First
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl">
+        <section className="py-40 bg-black"> {/* Increased padding */}
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="mb-16">
+              <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white">
+                Safety First
+              </h2>
+              <div className="h-1 w-32 bg-white opacity-30"></div> {/* Decorative line */}
+            </div>
+            <p className="text-xl leading-relaxed text-gray-300 max-w-3xl">
               Our facility is designed with state-of-the-art safety measures, ensuring 
               you can enjoy the raw power of molten lava in complete security.
             </p>
