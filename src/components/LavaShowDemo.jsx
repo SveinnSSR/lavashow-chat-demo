@@ -1,48 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ChatWidget from './ChatWidget';
 
 const LavaShowDemo = () => {
-  const [scroll, setScroll] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScroll(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <div className="relative bg-black text-white">
-      {/* Hero Section with Parallax */}
-      <div className="relative min-h-screen flex flex-col justify-center">
+      {/* Hero Section */}
+      <div className="relative h-screen flex flex-col justify-center">
         {/* Background Image */}
         <img 
           src="/images/icelandic-lava-show.jpg" 
           alt="Lava Background"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
-          style={{
-            transform: `translateY(${scroll * 0.3}px)`,
-            opacity: 0.8
-          }}
-        />
-
-        {/* Dark overlay for text readability */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/30"
-          style={{
-            transform: `translateY(${scroll * 0.3}px)`
-          }}
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
 
         {/* Hero Content */}
-        <div 
-          className="relative px-8 pt-24 max-w-7xl mx-auto"
-          style={{
-            transform: `translateY(${scroll * 0.1}px)`
-          }}
-        >
+        <div className="relative px-8 pt-24 max-w-7xl mx-auto">
           <h1 
             className="text-7xl md:text-8xl lg:text-9xl font-bold mb-12 tracking-tight"
             style={{
@@ -66,17 +38,23 @@ const LavaShowDemo = () => {
             </p>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="text-white/70 text-sm">Scroll to explore</div>
+          <div className="w-1 h-8 bg-white/30 mx-auto mt-2 rounded-full"></div>
+        </div>
       </div>
 
-      {/* Content Sections */}
-      <div className="relative z-10">
+      {/* Additional Content Sections */}
+      <div className="relative bg-black/90">
         {/* Experience Section */}
-        <section className="py-24 px-8 bg-black">
+        <section className="py-24 px-8">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-12 text-[#FF4B12]">
               Experience Real Molten Lava
             </h2>
-            <div className="grid md:grid-cols-2 gap-16">
+            <div className="grid md:grid-cols-2 gap-12">
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Unique Demonstrations</h3>
                 <p className="text-gray-300 text-lg">
