@@ -32,14 +32,14 @@ const ChatWidget = ({
             justifyContent: 'flex-start',
             marginBottom: '16px',
             alignItems: 'flex-start',
-            gap: '8px'
+            gap: '12px'
         }}>
             <img 
                 src="/images/tinna.png" 
                 alt="Tinna"
                 style={{
-                    width: '30px',
-                    height: '30px',
+                    width: '35px',
+                    height: '35px',
                     borderRadius: '50%',
                     marginTop: '4px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
@@ -47,39 +47,16 @@ const ChatWidget = ({
             />
             <div style={{
                 padding: '12px 16px',
-                borderRadius: '16px',
+                borderRadius: '18px',
                 backgroundColor: '#f5f5f5',
                 display: 'flex',
                 gap: '4px',
                 alignItems: 'center',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
             }}>
-                <span style={{
-                    height: '8px',
-                    width: '8px',
-                    backgroundColor: '#93918f',
-                    borderRadius: '50%',
-                    opacity: 0.4,
-                    animation: 'typing 1s infinite'
-                }}/>
-                <span style={{
-                    height: '8px',
-                    width: '8px',
-                    backgroundColor: '#93918f',
-                    borderRadius: '50%',
-                    opacity: 0.4,
-                    animation: 'typing 1s infinite',
-                    animationDelay: '0.2s'
-                }}/>
-                <span style={{
-                    height: '8px',
-                    width: '8px',
-                    backgroundColor: '#93918f',
-                    borderRadius: '50%',
-                    opacity: 0.4,
-                    animation: 'typing 1s infinite',
-                    animationDelay: '0.4s'
-                }}/>
+                <span className="typing-dot" />
+                <span className="typing-dot" />
+                <span className="typing-dot" />
             </div>
         </div>
     );
@@ -146,7 +123,7 @@ const ChatWidget = ({
             <div 
                 onClick={() => setIsMinimized(!isMinimized)}
                 style={{
-                    padding: isMinimized ? '16px 20px' : '20px 16px',
+                    padding: isMinimized ? '16px 20px' : '24px 16px',
                     display: 'flex',
                     alignItems: 'center',
                     cursor: 'pointer',
@@ -162,8 +139,8 @@ const ChatWidget = ({
                     src="/images/tinna.png" 
                     alt="Tinna" 
                     style={{ 
-                        height: isMinimized ? '32px' : '60px',
-                        width: isMinimized ? '32px' : '60px',
+                        height: isMinimized ? '40px' : '80px',
+                        width: isMinimized ? '40px' : '80px',
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
@@ -177,7 +154,7 @@ const ChatWidget = ({
                 }}>
                     <span style={{ 
                         color: 'white',
-                        fontSize: isMinimized ? '15px' : '16px',
+                        fontSize: isMinimized ? '16px' : '18px',
                         fontWeight: '600',
                         letterSpacing: '0.5px'
                     }}>
@@ -185,7 +162,7 @@ const ChatWidget = ({
                     </span>
                     <span style={{ 
                         color: '#ffffff',
-                        fontSize: isMinimized ? '13px' : '14px',
+                        fontSize: isMinimized ? '14px' : '15px',
                         opacity: 0.9
                     }}>
                         LAVA SHOW
@@ -220,15 +197,15 @@ const ChatWidget = ({
                                 justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
                                 marginBottom: msg.type === 'bot' ? '16px' : '12px',
                                 alignItems: 'flex-start',
-                                gap: '8px'
+                                gap: '12px'
                             }}>
                                 {msg.type === 'bot' && (
                                     <img 
                                         src="/images/tinna.png" 
                                         alt="Tinna"
                                         style={{
-                                            width: '30px',
-                                            height: '30px',
+                                            width: '35px',
+                                            height: '35px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
                                             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
@@ -236,9 +213,9 @@ const ChatWidget = ({
                                     />
                                 )}
                                 <div style={{
-                                    maxWidth: '70%',
+                                    maxWidth: '75%',
                                     padding: '12px 16px',
-                                    borderRadius: '16px',
+                                    borderRadius: '18px',
                                     backgroundColor: msg.type === 'user' ? '#FF4B12' : '#f8f8f8',
                                     color: msg.type === 'user' ? 'white' : '#333333',
                                     fontSize: '14px',
@@ -262,7 +239,7 @@ const ChatWidget = ({
 
                     {/* Input area */}
                     <div style={{
-                        padding: '12px 16px',
+                        padding: '16px',
                         backgroundColor: 'white',
                         borderTop: '1px solid rgba(0,0,0,0.1)',
                         display: 'flex',
@@ -276,16 +253,13 @@ const ChatWidget = ({
                             placeholder={language === 'en' ? "Type your message..." : "Skrifaðu skilaboð..."}
                             style={{
                                 flex: 1,
-                                padding: '10px 16px',
-                                borderRadius: '20px',
+                                padding: '12px 18px',
+                                borderRadius: '24px',
                                 border: '1px solid #ddd',
                                 outline: 'none',
                                 fontSize: '14px',
                                 transition: 'all 0.2s ease',
-                                ':focus': {
-                                    borderColor: '#FF4B12',
-                                    boxShadow: '0 0 0 2px rgba(255, 75, 18, 0.1)'
-                                }
+                                backgroundColor: '#f8f8f8'
                             }}
                         />
                         <button
@@ -294,18 +268,13 @@ const ChatWidget = ({
                                 backgroundColor: '#FF4B12',
                                 color: 'white',
                                 border: 'none',
-                                padding: '10px 24px',
-                                borderRadius: '20px',
+                                padding: '12px 24px',
+                                borderRadius: '24px',
                                 cursor: 'pointer',
                                 fontSize: '14px',
                                 fontWeight: '600',
                                 transition: 'all 0.3s ease',
-                                boxShadow: '0 2px 4px rgba(255, 75, 18, 0.2)',
-                                ':hover': {
-                                    backgroundColor: '#E64400',
-                                    transform: 'translateY(-1px)',
-                                    boxShadow: '0 4px 12px rgba(255, 75, 18, 0.3)'
-                                }
+                                boxShadow: '0 2px 4px rgba(255, 75, 18, 0.2)'
                             }}
                         >
                             {language === 'en' ? 'Send' : 'Senda'}
