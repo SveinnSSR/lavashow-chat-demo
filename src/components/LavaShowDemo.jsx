@@ -16,24 +16,24 @@ const LavaShowDemo = () => {
   return (
     <div className="relative bg-black text-white">
       {/* Hero Section with Parallax */}
-      <div className="relative h-screen flex flex-col justify-center">
+      <div className="relative min-h-screen flex flex-col justify-center">
         {/* Background Image with Parallax */}
         <img 
           src="/images/icelandic-lava-show.jpg" 
           alt="Lava Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-30 transition-transform duration-300"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300"
           style={{
-            transform: `translateY(${scroll * 0.5}px)`,
-            opacity: Math.max(0.3 - scroll * 0.001, 0)
+            transform: `translateY(${scroll * 0.3}px)`,
+            opacity: 0.4 // Fixed opacity for better visibility
           }}
         />
 
         {/* Hero Content */}
         <div 
-          className="relative px-8 pt-24 max-w-7xl mx-auto"
+          className="relative px-8 pt-24 max-w-7xl mx-auto transition-opacity duration-300"
           style={{
-            transform: `translateY(${scroll * 0.2}px)`,
-            opacity: Math.max(1 - scroll * 0.002, 0)
+            transform: `translateY(${scroll * 0.1}px)`,
+            opacity: Math.max(1 - scroll * 0.0015, 0.3) // Slower fade-out, minimum opacity 0.3
           }}
         >
           <h1 
@@ -61,10 +61,10 @@ const LavaShowDemo = () => {
         </div>
       </div>
 
-      {/* Content Sections with Fade In */}
-      <div className="relative bg-black/90">
+      {/* Content Sections */}
+      <div className="relative z-10 bg-black/80"> {/* Increased z-index and adjusted background opacity */}
         {/* Experience Section */}
-        <section className="py-24 px-8 opacity-0 animate-fade-in">
+        <section className="py-24 px-8">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-12 text-[#FF4B12]">
               Experience Real Molten Lava
@@ -89,7 +89,7 @@ const LavaShowDemo = () => {
         </section>
 
         {/* Safety Section */}
-        <section className="py-24 px-8 bg-black/50 opacity-0 animate-fade-in">
+        <section className="py-24 px-8 bg-black/90"> {/* Darker background for better contrast */}
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-12 text-white">
               Safety First
@@ -104,24 +104,6 @@ const LavaShowDemo = () => {
 
       {/* Chat Widget */}
       <ChatWidget />
-
-      {/* Add these styles to your CSS */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade-in {
-          animation: fadeIn 0.8s ease-out forwards;
-          animation-play-state: paused;
-          animation-delay: calc(var(--scroll) * -1s);
-        }
-
-        section {
-          --scroll: 0;
-        }
-      `}</style>
     </div>
   );
 };

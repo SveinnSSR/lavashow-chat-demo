@@ -1,16 +1,15 @@
-/* Add intersection observer styles */
-section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease-out;
-  }
-  
-  section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Smooth scroll behavior */
-  html {
+/* Smooth scroll behavior */
+html {
     scroll-behavior: smooth;
+  }
+  
+  /* Base section styles */
+  section {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  /* Ensure text remains visible during scrolling */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
