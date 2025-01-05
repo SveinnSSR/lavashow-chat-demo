@@ -38,12 +38,6 @@ const LavaShowDemo = () => {
             </p>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="text-white/70 text-sm">Scroll to explore</div>
-          <div className="w-1 h-8 bg-white/30 mx-auto mt-2 rounded-full"></div>
-        </div>
       </div>
 
       {/* Additional Content Sections */}
