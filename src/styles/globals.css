@@ -3,11 +3,6 @@ html {
     scroll-behavior: smooth;
   }
   
-  /* Base section styles */
-  section {
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  
   /* Ensure text remains visible during scrolling */
   * {
     -webkit-font-smoothing: antialiased;
