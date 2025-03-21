@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { theme } from '../styles/theme';
 import MessageFormatter from './MessageFormatter';
 
@@ -7,7 +7,7 @@ const ChatWidget = ({
     apiKey, 
     language = 'en' 
 }) => {
-    const messagesEndRef = React.useRef(null);
+    const messagesEndRef = useRef(null);
     const [isMinimized, setIsMinimized] = useState(true);
     const [messages, setMessages] = useState([{
         type: 'bot',
@@ -17,6 +17,13 @@ const ChatWidget = ({
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
+    const [sessionId, setSessionId] = useState('');
+    
+    // Initialize session ID on component mount
+    useEffect(() => {
+        // Create a unique session ID for this conversation
+        setSessionId(`session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
+    }, []);
     
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -75,15 +82,16 @@ const ChatWidget = ({
         setIsTyping(true);
 
         try {
-            const response = await fetch(process.env.REACT_APP_WEBHOOK_URL, {
+            const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_API_KEY
+                    'x-api-key': apiKey || process.env.REACT_APP_API_KEY
                 },
                 body: JSON.stringify({ 
                     message: messageText,
-                    language: language
+                    language: language,
+                    sessionId: sessionId // Send session ID to maintain context
                 })
             });   
 
@@ -117,7 +125,8 @@ const ChatWidget = ({
             backdropFilter: 'blur(10px)',
             fontFamily: theme.fonts.body,
             overflow: 'hidden',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.3s ease',
+            zIndex: 1000
         }}>
             {/* Header */}
             <div 
