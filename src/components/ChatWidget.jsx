@@ -31,7 +31,9 @@ const ChatWidget = ({
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, [messages, isTyping]);
+
+    // We'll use the global CSS for typing animations instead of inline styles
 
     const TypingIndicator = () => (
         <div style={{
@@ -45,11 +47,12 @@ const ChatWidget = ({
                 src="/images/tinna.png" 
                 alt="Tinna"
                 style={{
-                    width: '35px',
-                    height: '35px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '50%',
                     marginTop: '4px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                    objectFit: 'cover'
                 }}
             />
             <div style={{
@@ -61,9 +64,9 @@ const ChatWidget = ({
                 alignItems: 'center',
                 boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
             }}>
-                <span className="typing-dot" />
-                <span className="typing-dot" />
-                <span className="typing-dot" />
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
             </div>
         </div>
     );
@@ -132,7 +135,7 @@ const ChatWidget = ({
             <div 
                 onClick={() => setIsMinimized(!isMinimized)}
                 style={{
-                    padding: isMinimized ? '16px 20px' : '24px 16px',
+                    padding: isMinimized ? '16px 20px' : '20px 16px',
                     display: 'flex',
                     alignItems: 'center',
                     cursor: 'pointer',
@@ -140,7 +143,8 @@ const ChatWidget = ({
                     backgroundColor: '#FF4B12',
                     width: '100%',
                     boxSizing: 'border-box',
-                    flexDirection: isMinimized ? 'row' : 'column',
+                    flexDirection: isMinimized ? 'row' : 'row',
+                    justifyContent: isMinimized ? 'flex-start' : 'center',
                     boxShadow: '0 2px 10px rgba(255, 75, 18, 0.2)'
                 }}
             >
@@ -148,8 +152,8 @@ const ChatWidget = ({
                     src="/images/tinna.png" 
                     alt="Tinna" 
                     style={{ 
-                        height: isMinimized ? '40px' : '80px',
-                        width: isMinimized ? '40px' : '80px',
+                        height: isMinimized ? '40px' : '60px',
+                        width: isMinimized ? '40px' : '60px',
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
@@ -158,7 +162,7 @@ const ChatWidget = ({
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: isMinimized ? 'flex-start' : 'center',
+                    alignItems: isMinimized ? 'flex-start' : 'flex-start',
                     gap: '4px'
                 }}>
                     <span style={{ 
@@ -180,10 +184,7 @@ const ChatWidget = ({
                 <span style={{ 
                     color: 'white',
                     fontSize: '12px',
-                    marginLeft: isMinimized ? 'auto' : '0',
-                    position: isMinimized ? 'relative' : 'absolute',
-                    right: isMinimized ? 'auto' : '16px',
-                    top: isMinimized ? 'auto' : '16px',
+                    marginLeft: 'auto',
                     opacity: 0.8
                 }}>
                     {isMinimized ? '△' : '▽'}
@@ -201,7 +202,7 @@ const ChatWidget = ({
                         backgroundImage: 'linear-gradient(to bottom, #f8f8f8, #ffffff)'
                     }}>
                         {messages.map((msg, index) => (
-                            <div key={index} style={{
+                            <div className="chat-bubble message-transition" key={index} style={{
                                 display: 'flex',
                                 justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
                                 marginBottom: msg.type === 'bot' ? '16px' : '12px',
@@ -213,11 +214,12 @@ const ChatWidget = ({
                                         src="/images/tinna.png" 
                                         alt="Tinna"
                                         style={{
-                                            width: '35px',
-                                            height: '35px',
+                                            width: '40px',
+                                            height: '40px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
-                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                            objectFit: 'cover'
                                         }}
                                     />
                                 )}
@@ -255,6 +257,7 @@ const ChatWidget = ({
                         gap: '8px'
                     }}>
                         <input
+                            className="chat-input"
                             type="text"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
@@ -267,11 +270,11 @@ const ChatWidget = ({
                                 border: '1px solid #ddd',
                                 outline: 'none',
                                 fontSize: '14px',
-                                transition: 'all 0.2s ease',
                                 backgroundColor: '#f8f8f8'
                             }}
                         />
                         <button
+                            className="send-button"
                             onClick={handleSend}
                             style={{
                                 backgroundColor: '#FF4B12',
@@ -282,7 +285,6 @@ const ChatWidget = ({
                                 cursor: 'pointer',
                                 fontSize: '14px',
                                 fontWeight: '600',
-                                transition: 'all 0.3s ease',
                                 boxShadow: '0 2px 4px rgba(255, 75, 18, 0.2)'
                             }}
                         >
