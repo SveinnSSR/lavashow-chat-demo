@@ -8,7 +8,7 @@
 .typing-dot {
   width: 8px;
   height: 8px;
-  background-color: #93918f;
+  background-color: #555555; /* Much darker gray for better visibility */
   border-radius: 50%;
   display: inline-block;
   margin: 0 1px;
