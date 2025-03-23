@@ -62,18 +62,19 @@ const ChatWidget = ({
                     borderRadius: '50%',
                     marginTop: '4px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    objectFit: 'cover'
+                    objectFit: 'cover',
+                    border: '1px solid ' + brandOrange
                 }}
             />
             <div style={{
                 padding: '12px 16px',
                 borderRadius: '16px',
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#333333',
                 display: 'flex',
                 gap: '4px',
                 alignItems: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                border: '1px solid rgba(0,0,0,0.05)'
+                boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                border: '1px solid #444444'
             }}>
                 <span className="typing-dot"></span>
                 <span className="typing-dot"></span>
@@ -135,10 +136,10 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: isMinimized ? brandOrange : '#FFFFFF', // Orange when minimized, white when expanded
+            backgroundColor: isMinimized ? brandOrange : '#000000', // Orange when minimized, black when expanded
             borderRadius: isMinimized ? '50%' : '16px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-            border: isMinimized ? 'none' : '1px solid #eeeeee',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+            border: 'none',
             fontFamily: theme.fonts.body,
             overflow: 'hidden',
             transformOrigin: 'bottom right',
@@ -157,12 +158,13 @@ const ChatWidget = ({
                     justifyContent: isMinimized ? 'center' : 'flex-start',
                     cursor: 'pointer',
                     gap: '12px',
-                    backgroundColor: brandOrange, // Orange header
+                    backgroundColor: isMinimized ? brandOrange : 'black', // Black header
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
                     flexDirection: isMinimized ? 'row' : 'column',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+                    borderBottom: '1px solid #333333'
                 }}
             >
                 <img 
@@ -173,7 +175,7 @@ const ChatWidget = ({
                         width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.2)' : '0 2px 4px rgba(0, 0, 0, 0.2)',
                         border: '2px solid white' // White border for contrast
                     }}
                 />
@@ -188,15 +190,15 @@ const ChatWidget = ({
                             color: 'white',
                             fontSize: '16px',
                             fontWeight: '600',
-                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                         }}>
                             Tinna
                         </span>
                         <span style={{ 
-                            color: 'white',
+                            color: brandOrange,
                             fontSize: '14px',
                             fontWeight: '500',
-                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                         }}>
                             LAVA SHOW
                         </span>
@@ -209,7 +211,7 @@ const ChatWidget = ({
                         position: 'absolute',
                         right: '16px',
                         top: '16px',
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                     }}>
                         ▽
                     </span>
@@ -220,7 +222,7 @@ const ChatWidget = ({
             {!isMinimized && (
                 <div style={{
                     height: '400px',
-                    backgroundColor: 'white',
+                    backgroundColor: '#121212', // Dark theme
                     overflowY: 'auto',
                     padding: '16px'
                 }}>
@@ -247,8 +249,9 @@ const ChatWidget = ({
                                             height: '30px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
-                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                            objectFit: 'cover'
+                                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                            objectFit: 'cover',
+                                            border: '1px solid ' + brandOrange
                                         }}
                                     />
                                 )}
@@ -256,14 +259,14 @@ const ChatWidget = ({
                                     maxWidth: '70%',
                                     padding: '12px 16px',
                                     borderRadius: '16px',
-                                    backgroundColor: msg.type === 'user' ? brandOrange : '#f0f0f0',
-                                    color: msg.type === 'user' ? 'white' : '#333333',
+                                    backgroundColor: msg.type === 'user' ? brandOrange : '#333333',
+                                    color: 'white',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
-                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
                                     border: msg.type === 'user' ? 
                                         '1px solid rgba(255, 255, 255, 0.1)' : 
-                                        '1px solid rgba(0, 0, 0, 0.05)'
+                                        '1px solid #444444'
                                 }}>
                                     {msg.type === 'bot' ? (
                                         <MessageFormatter message={msg.content} />
@@ -283,8 +286,8 @@ const ChatWidget = ({
             {!isMinimized && (
                 <div style={{
                     padding: '12px 16px',
-                    backgroundColor: 'white',
-                    borderTop: '1px solid #eee',
+                    backgroundColor: '#1A1A1A', // Dark input area
+                    borderTop: '1px solid #333333',
                     display: 'flex',
                     gap: '8px'
                 }}>
@@ -298,17 +301,19 @@ const ChatWidget = ({
                             flex: 1,
                             padding: '8px 16px',
                             borderRadius: '20px',
-                            border: '1px solid #ddd',
+                            border: '1px solid #444444',
                             outline: 'none',
                             fontSize: '14px',
-                            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                            backgroundColor: '#2A2A2A',
+                            color: 'white',
+                            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.3)',
                         }}
                     />
                     <button
                         onClick={handleSend}
                         disabled={isTyping}
                         style={{
-                            backgroundColor: isTyping ? '#a0a0a0' : brandOrange,
+                            backgroundColor: isTyping ? '#666666' : brandOrange,
                             color: 'white',
                             border: 'none',
                             padding: '8px 20px',
@@ -316,7 +321,7 @@ const ChatWidget = ({
                             cursor: isTyping ? 'default' : 'pointer',
                             fontSize: '14px',
                             fontWeight: '500',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
                             opacity: isTyping ? 0.7 : 1,
                             transition: 'all 0.3s ease'
                         }}
@@ -343,7 +348,7 @@ const ChatWidget = ({
                 .typing-dot {
                     width: 8px;
                     height: 8px;
-                    background-color: #555555; /* Darker for better visibility */
+                    background-color: #AAAAAA; /* Light gray for dark background */
                     border-radius: 50%;
                     display: inline-block;
                     margin: 0 1px;
