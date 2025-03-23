@@ -132,10 +132,10 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: isMinimized ? 'rgba(255, 75, 18, 0.95)' : 'rgba(255, 75, 18, 1)', 
+            backgroundColor: isMinimized ? '#FFFFFF' : '#FFFFFF', // White theme
             borderRadius: isMinimized ? '50%' : '16px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2), 0 0 15px rgba(255, 255, 255, 0.1)',
-            border: 'none',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+            border: '1px solid rgba(0, 0, 0, 0.05)',
             fontFamily: theme.fonts.body,
             overflow: 'hidden',
             transformOrigin: 'bottom right',
@@ -154,12 +154,13 @@ const ChatWidget = ({
                     justifyContent: isMinimized ? 'center' : 'flex-start',
                     cursor: 'pointer',
                     gap: '12px',
-                    backgroundColor: 'rgba(255, 75, 18, 1)',
+                    backgroundColor: '#FFFFFF', // White header
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
                     flexDirection: isMinimized ? 'row' : 'column',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                    borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.1)'
                 }}
             >
                 <img 
@@ -170,7 +171,8 @@ const ChatWidget = ({
                         width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         borderRadius: '50%',
                         objectFit: 'cover',
-                        boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)'
+                        boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        border: isMinimized ? '2px solid #FF4B12' : '2px solid #FF4B12' // Orange border
                     }}
                 />
                 {!isMinimized && (
@@ -181,17 +183,16 @@ const ChatWidget = ({
                         gap: '4px'
                     }}>
                         <span style={{ 
-                            color: 'white',
+                            color: '#333333', // Dark text for contrast
                             fontSize: '16px',
-                            fontWeight: '500',
-                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                            fontWeight: '600',
                         }}>
                             Tinna
                         </span>
                         <span style={{ 
-                            color: '#e0e0e0',
+                            color: '#FF4B12', // Orange for brand identity
                             fontSize: '14px',
-                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                            fontWeight: '500'
                         }}>
                             LAVA SHOW
                         </span>
@@ -199,12 +200,11 @@ const ChatWidget = ({
                 )}
                 {!isMinimized && (
                     <span style={{ 
-                        color: 'white',
+                        color: '#777777', // Mid-gray for subtle contrast
                         fontSize: '12px',
                         position: 'absolute',
                         right: '16px',
-                        top: '16px',
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                        top: '16px'
                     }}>
                         ▽
                     </span>
@@ -242,8 +242,9 @@ const ChatWidget = ({
                                             height: '30px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
-                                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                                            objectFit: 'cover'
+                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                                            objectFit: 'cover',
+                                            border: '1px solid #FF4B12' // Subtle orange border
                                         }}
                                     />
                                 )}
@@ -255,7 +256,7 @@ const ChatWidget = ({
                                     color: msg.type === 'user' ? 'white' : '#333333',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
-                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
                                     border: msg.type === 'user' ? 
                                         '1px solid rgba(255, 255, 255, 0.1)' : 
                                         '1px solid rgba(0, 0, 0, 0.05)'
