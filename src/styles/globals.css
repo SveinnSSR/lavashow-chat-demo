@@ -1,14 +1,14 @@
-/* Typing indicator animation - keeping original style but enhancing it */
+/* Typing indicator animation */
 @keyframes typingAnimation {
-  0% { opacity: 0.4; transform: translateY(0); }
-  50% { opacity: 1; transform: translateY(-2px); }
-  100% { opacity: 0.4; transform: translateY(0); }
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
 }
 
 .typing-dot {
   width: 8px;
   height: 8px;
-  background-color: #555555; /* Much darker gray for better visibility */
+  background-color: #555555; /* Darker gray for better visibility */
   border-radius: 50%;
   display: inline-block;
   margin: 0 1px;
@@ -27,9 +27,9 @@
   animation-delay: 0.4s;
 }
 
-/* Chat bubble animations */
+/* Chat bubble fade in animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -37,12 +37,12 @@
   animation: fadeIn 0.3s ease forwards;
 }
 
-/* Add smooth transitions for chat messages */
+/* Smooth transitions */
 .message-transition {
   transition: all 0.3s ease;
 }
 
-/* Enhanced Button Styles */
+/* Button hover effect */
 button.send-button {
   transition: all 0.2s ease;
   background-color: #FF4B12;
@@ -54,7 +54,7 @@ button.send-button:hover {
   box-shadow: 0 4px 8px rgba(255, 75, 18, 0.3);
 }
 
-/* Enhanced Input focus effect */
+/* Input focus effect */
 input.chat-input {
   transition: all 0.2s ease;
 }
@@ -63,4 +63,11 @@ input.chat-input:focus {
   border-color: #FF4B12;
   box-shadow: 0 0 0 2px rgba(255, 75, 18, 0.1);
   background-color: white;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  input, button {
+    font-size: 16px !important; /* Prevent zoom on mobile */
+  }
 }
