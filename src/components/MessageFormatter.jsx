@@ -11,16 +11,18 @@ const MessageFormatter = ({ message }) => {
   const baseLinkStyles = {
     color: '#333333',            // Dark text for contrast
     textDecoration: 'none',      // Remove underline
-    backgroundColor: '#f2f2f2',  // Light background for button effect
-    padding: '6px 12px',         // Add padding for button look
-    borderRadius: '4px',         // Rounded corners
+    backgroundColor: '#f5f5f5',  // Slightly lighter background for better contrast
+    padding: '8px 14px',         // Increased padding for better button appearance
+    borderRadius: '6px',         // Slightly more rounded corners
     display: 'inline-block',     // Make it block-level for padding
     marginTop: '8px',            // Add some space above
+    marginBottom: '4px',         // Add some space below
     fontSize: '14px',            // Slightly smaller font
     fontWeight: '500',           // Medium weight
     transition: 'all 0.2s ease', // Smooth hover effect
     cursor: 'pointer',           // Show clickable cursor
-    border: '1px solid #e0e0e0'  // Subtle border
+    border: '1px solid #e0e0e0',  // Subtle border
+    boxShadow: '0 1px 2px rgba(0,0,0,0.05)' // Subtle shadow for depth
   };
 
   // Different variations for different types of links
@@ -30,24 +32,30 @@ const MessageFormatter = ({ message }) => {
     },
     maps: {
       ...baseLinkStyles,
-      paddingLeft: '28px',
-      position: 'relative'
+      paddingLeft: '32px',       // More space for the icon
+      position: 'relative',
+      backgroundColor: '#F7F7F7' // Slightly different background for maps
     },
     tickets: {
       ...baseLinkStyles,
-      backgroundColor: '#FFE8E3'  // Light orange background for tickets
+      backgroundColor: '#FFF1ED', // Warmer, more distinctive light orange
+      borderColor: '#FFD6CC'     // Stronger border color
     },
     locations: {
       ...baseLinkStyles,
-      backgroundColor: '#FFF0EB'  // Different light orange for locations
+      backgroundColor: '#FFEBE6', // Different light orange for locations
+      borderColor: '#FFCEC1'     // Stronger border color
     }
   };
 
   // Function to determine link style based on URL
   const getLinkStyle = (url) => {
-    if (url.includes('maps') || url.includes('location')) return linkStyles.maps;
-    if (url.includes('ticket') || url.includes('book')) return linkStyles.tickets;
-    if (url.includes('location') || url.includes('reykjavik') || url.includes('hella')) return linkStyles.locations;
+    if (url.includes('maps') || url.includes('location') || url.includes('directions')) 
+      return linkStyles.maps;
+    if (url.includes('ticket') || url.includes('book') || url.includes('experience')) 
+      return linkStyles.tickets;
+    if (url.includes('reykjavik') || url.includes('vik') || url.includes('address')) 
+      return linkStyles.locations;
     return linkStyles.default;
   };
   
@@ -96,29 +104,47 @@ const MessageFormatter = ({ message }) => {
           rel="noopener noreferrer"
           style={linkStyle}
           onMouseEnter={(e) => {
-            e.target.style.backgroundColor = '#e9e9e9';
-            e.target.style.color = brandOrange; // Change to Lava Show orange on hover
-            e.target.style.transform = 'translateY(-1px)';
+            e.target.style.backgroundColor = '#f0f0f0';
+            e.target.style.color = brandOrange; 
+            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.boxShadow = '0 3px 6px rgba(0,0,0,0.1)';
+            if (match.url.includes('ticket') || match.url.includes('book')) {
+              e.target.style.backgroundColor = '#FFE8E0';
+            } else if (match.url.includes('location') || match.url.includes('reykjavik') || match.url.includes('vik')) {
+              e.target.style.backgroundColor = '#FFE2DB';
+            } else if (match.url.includes('maps')) {
+              e.target.style.backgroundColor = '#F2F2F2';
+            }
           }}
           onMouseLeave={(e) => {
             // Reset to original colors based on link type
             const url = e.target.href;
             e.target.style.color = '#333333';
+            e.target.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
             
-            if (url.includes('maps') || url.includes('location')) {
-              e.target.style.backgroundColor = '#f2f2f2';
-            } else if (url.includes('ticket') || url.includes('book')) {
-              e.target.style.backgroundColor = '#FFE8E3';
-            } else if (url.includes('location') || url.includes('reykjavik') || url.includes('hella')) {
-              e.target.style.backgroundColor = '#FFF0EB';
+            if (url.includes('maps') || url.includes('directions')) {
+              e.target.style.backgroundColor = '#F7F7F7';
+            } else if (url.includes('ticket') || url.includes('book') || url.includes('experience')) {
+              e.target.style.backgroundColor = '#FFF1ED';
+            } else if (url.includes('reykjavik') || url.includes('vik') || url.includes('address')) {
+              e.target.style.backgroundColor = '#FFEBE6';
             } else {
-              e.target.style.backgroundColor = '#f2f2f2';
+              e.target.style.backgroundColor = '#f5f5f5';
             }
             
             e.target.style.transform = 'translateY(0)';
           }}
         >
-          {match.url.includes('maps') || match.url.includes('location') ? '📍 ' : ''}{match.text}
+          {match.url.includes('maps') || match.url.includes('location') || match.url.includes('directions') ? 
+            <span style={{
+              position: 'absolute',
+              left: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              fontSize: '16px'
+            }}>📍</span> : ''
+          }
+          {match.text}
         </a>
       );
       
