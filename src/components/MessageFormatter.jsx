@@ -160,26 +160,84 @@ const MessageFormatter = ({ message }) => {
     return parts;
   };
   
-  // Function to process regular URLs (keeping your existing linkifyText functionality)
+  // Function to process regular URLs (converting them to button-style links)
   const processUrls = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = text.split(urlRegex);
     
     return parts.map((part, index) => {
       if (part.match(urlRegex)) {
+        // Determine what kind of URL it is and create appropriate button text
+        let buttonText = "Visit Website";
+        let isMapLink = false;
+        
+        if (part.includes('google.com/maps') || part.includes('maps.app') || part.includes('goo.gl/maps')) {
+          buttonText = "📍 View on Google Maps 📍";
+          isMapLink = true;
+        } else if (part.includes('ticket') || part.includes('booking') || part.includes('book') || part.includes('experience')) {
+          buttonText = "Book Your Experience";
+        } else if (part.includes('menu') || part.includes('food')) {
+          buttonText = "View Menu";
+        } else if (part.includes('instagram')) {
+          buttonText = "Visit Instagram";
+        } else if (part.includes('facebook')) {
+          buttonText = "Visit Facebook";
+        } else if (part.includes('twitter') || part.includes('x.com')) {
+          buttonText = "Visit Twitter";
+        }
+        
+        // Get appropriate style based on URL type
+        const linkStyle = isMapLink ? 
+          { ...linkStyles.maps } : 
+          (part.includes('ticket') || part.includes('book')) ? 
+            { ...linkStyles.tickets } : 
+            { ...linkStyles.default };
+        
         return (
           <a 
             key={index}
             href={part}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              color: brandOrange,
-              textDecoration: 'underline',
-              fontWeight: '500'
+            title={part} // Show full URL on hover
+            style={linkStyle}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#f0f0f0';
+              e.target.style.color = brandOrange; 
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 3px 6px rgba(0,0,0,0.1)';
+              if (part.includes('ticket') || part.includes('book')) {
+                e.target.style.backgroundColor = '#FFE8E0';
+              } else if (isMapLink) {
+                e.target.style.backgroundColor = '#F2F2F2';
+              }
+            }}
+            onMouseLeave={(e) => {
+              // Reset to original colors based on link type
+              e.target.style.color = '#333333';
+              e.target.style.boxShadow = '0 1px 2px rgba(0,0,0,0.05)';
+              
+              if (isMapLink) {
+                e.target.style.backgroundColor = '#F7F7F7';
+              } else if (part.includes('ticket') || part.includes('book')) {
+                e.target.style.backgroundColor = '#FFF1ED';
+              } else {
+                e.target.style.backgroundColor = '#f5f5f5';
+              }
+              
+              e.target.style.transform = 'translateY(0)';
             }}
           >
-            {part}
+            {isMapLink && 
+              <span style={{
+                position: 'absolute',
+                left: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                fontSize: '16px'
+              }}>📍</span>
+            }
+            {buttonText}
           </a>
         );
       }
@@ -191,7 +249,7 @@ const MessageFormatter = ({ message }) => {
   const paragraphs = message.split('\n\n');
   
   return (
-    <div style={{ width: '100%', lineHeight: '1.6' }}>
+    <div style={{ width: '100%', lineHeight: '1.6', overflowWrap: 'break-word', wordWrap: 'break-word' }}>
       {paragraphs.map((paragraph, paragraphIndex) => {
         // Then process each paragraph line by line
         const lines = paragraph.split('\n');
