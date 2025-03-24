@@ -135,7 +135,7 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: isMinimized ? brandOrange : '#FFFFFF', // Orange when minimized, white when expanded
+            backgroundColor: '#FFFFFF', // White background for both states
             borderRadius: isMinimized ? '50%' : '16px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
             border: '1px solid rgba(0, 0, 0, 0.05)',
@@ -157,7 +157,7 @@ const ChatWidget = ({
                     justifyContent: isMinimized ? 'center' : 'center',
                     cursor: 'pointer',
                     gap: '12px',
-                    backgroundColor: isMinimized ? brandOrange : '#FFFFFF', // Match minimized color to brand orange
+                    backgroundColor: '#FFFFFF', // White background for header
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
@@ -176,7 +176,7 @@ const ChatWidget = ({
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        border: isMinimized ? '2px solid white' : `2px solid ${brandOrange}` // White border when minimized, orange when expanded
+                        border: `2px solid ${brandOrange}` // Orange border for consistency
                     }}
                 />
                 {!isMinimized && (
