@@ -21,6 +21,9 @@ const ChatWidget = ({
     // Add window width tracking for responsive design
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
     
+    // Lava Show exact brand color
+    const brandOrange = '#FF4C1D';
+    
     // Initialize session ID on component mount
     useEffect(() => {
         // Create a unique session ID for this conversation
@@ -132,7 +135,7 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: isMinimized ? '#FFFFFF' : '#FFFFFF', // White theme
+            backgroundColor: isMinimized ? brandOrange : '#FFFFFF', // Orange when minimized, white when expanded
             borderRadius: isMinimized ? '50%' : '16px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
             border: '1px solid rgba(0, 0, 0, 0.05)',
@@ -151,16 +154,17 @@ const ChatWidget = ({
                     padding: isMinimized ? '0' : '20px 16px',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: isMinimized ? 'center' : 'flex-start',
+                    justifyContent: isMinimized ? 'center' : 'center',
                     cursor: 'pointer',
                     gap: '12px',
-                    backgroundColor: '#FFFFFF', // White header
+                    backgroundColor: isMinimized ? brandOrange : '#FFFFFF', // Match minimized color to brand orange
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
-                    flexDirection: isMinimized ? 'row' : 'column',
+                    flexDirection: 'column',
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-                    borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.1)'
+                    borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.1)',
+                    position: 'relative'
                 }}
             >
                 <img 
@@ -172,7 +176,7 @@ const ChatWidget = ({
                         borderRadius: '50%',
                         objectFit: 'cover',
                         boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        border: isMinimized ? '2px solid #FF4B12' : '2px solid #FF4B12' // Orange border
+                        border: isMinimized ? '2px solid white' : `2px solid ${brandOrange}` // White border when minimized, orange when expanded
                     }}
                 />
                 {!isMinimized && (
@@ -180,7 +184,8 @@ const ChatWidget = ({
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        gap: '4px'
+                        gap: '4px',
+                        marginTop: '4px'
                     }}>
                         <span style={{ 
                             color: '#333333', // Dark text for contrast
@@ -190,7 +195,7 @@ const ChatWidget = ({
                             Tinna
                         </span>
                         <span style={{ 
-                            color: '#FF4B12', // Orange for brand identity
+                            color: brandOrange, // Orange for brand identity
                             fontSize: '14px',
                             fontWeight: '500'
                         }}>
@@ -243,8 +248,7 @@ const ChatWidget = ({
                                             borderRadius: '50%',
                                             marginTop: '4px',
                                             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                            objectFit: 'cover',
-                                            border: '1px solid #FF4B12' // Subtle orange border
+                                            objectFit: 'cover'
                                         }}
                                     />
                                 )}
@@ -252,7 +256,7 @@ const ChatWidget = ({
                                     maxWidth: '70%',
                                     padding: '12px 16px',
                                     borderRadius: '16px',
-                                    backgroundColor: msg.type === 'user' ? '#FF4B12' : '#f0f0f0',
+                                    backgroundColor: msg.type === 'user' ? brandOrange : '#f0f0f0',
                                     color: msg.type === 'user' ? 'white' : '#333333',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
@@ -299,12 +303,13 @@ const ChatWidget = ({
                             fontSize: '14px',
                             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
                         }}
+                        className="chat-input"
                     />
                     <button
                         onClick={handleSend}
                         disabled={isTyping}
                         style={{
-                            backgroundColor: isTyping ? '#a0a0a0' : '#FF4B12',
+                            backgroundColor: isTyping ? '#a0a0a0' : brandOrange,
                             color: 'white',
                             border: 'none',
                             padding: '8px 20px',
@@ -316,6 +321,7 @@ const ChatWidget = ({
                             opacity: isTyping ? 0.7 : 1,
                             transition: 'all 0.3s ease'
                         }}
+                        className="send-button"
                     >
                         {language === 'en' ? 'Send' : 'Senda'}
                     </button>
@@ -356,6 +362,18 @@ const ChatWidget = ({
                 
                 .typing-dot:nth-child(3) {
                     animation-delay: 0.4s;
+                }
+                
+                .chat-input:focus {
+                    border-color: ${brandOrange};
+                    box-shadow: 0 0 0 2px rgba(255, 76, 29, 0.1);
+                    background-color: white;
+                }
+                
+                .send-button:hover {
+                    background-color: #E63E00;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(255, 76, 29, 0.3);
                 }
                 
                 @media (max-width: 768px) {

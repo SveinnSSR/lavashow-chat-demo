@@ -45,13 +45,13 @@
 /* Button hover effect */
 button.send-button {
   transition: all 0.2s ease;
-  background-color: #FF4B12;
+  background-color: #FF4C1D;
 }
 
 button.send-button:hover {
   background-color: #E63E00;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 75, 18, 0.3);
+  box-shadow: 0 4px 8px rgba(255, 76, 29, 0.3);
 }
 
 /* Input focus effect */
@@ -60,8 +60,8 @@ input.chat-input {
 }
 
 input.chat-input:focus {
-  border-color: #FF4B12;
-  box-shadow: 0 0 0 2px rgba(255, 75, 18, 0.1);
+  border-color: #FF4C1D;
+  box-shadow: 0 0 0 2px rgba(255, 76, 29, 0.1);
   background-color: white;
 }
 
