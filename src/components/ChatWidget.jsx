@@ -12,8 +12,8 @@ const ChatWidget = ({
     const [messages, setMessages] = useState([{
         type: 'bot',
         content: language === 'en' ? 
-            "Hello! I'm Tinna. Would you like to learn about our unique lava demonstrations, experience packages, or how to get here?" :
-            "Hæ! Ég er Tinna. Get ég aðstoðað þig?"
+            "Hello! I'm Tinna your AI chatbot. Would you like to learn about our unique lava demonstrations, experience packages, or how to get here?" :
+            "Hæ! Ég er Tinna og er AI Spjallmenni. Hvernig get ég aðstoðað þig?"
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
