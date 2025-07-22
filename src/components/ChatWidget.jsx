@@ -3,7 +3,7 @@ import { theme } from '../styles/theme';
 import MessageFormatter from './MessageFormatter';
 
 const ChatWidget = ({ 
-    webhookUrl = 'https://lavashow-chat-2024.vercel.app/chat', 
+    webhookUrl = 'https://demo-chat-endpoint.vercel.app/chat', 
     apiKey, 
     language = 'en' 
 }) => {
@@ -12,17 +12,14 @@ const ChatWidget = ({
     const [messages, setMessages] = useState([{
         type: 'bot',
         content: language === 'en' ? 
-            "Hello! I'm Tinna your AI chatbot. Would you like to learn about our unique lava demonstrations, experience packages, or how to get here?" :
-            "Hæ! Ég er Tinna og er AI Spjallmenni. Hvernig get ég aðstoðað þig?"
+            "Hello! I'm Sólrún, your AI assistant. I'm here to help you explore this interactive demo and answer any questions you might have!" :
+            "Hæ! Ég er Sólrún og er AI aðstoðarmaður. Hvernig get ég aðstoðað þig?"
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [sessionId, setSessionId] = useState('');
     // Add window width tracking for responsive design
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
-    
-    // Lava Show exact brand color
-    const brandOrange = '#FF4C1D';
     
     // Initialize session ID on component mount
     useEffect(() => {
@@ -53,22 +50,28 @@ const ChatWidget = ({
             alignItems: 'flex-start',
             gap: '8px'
         }}>
-            <img 
-                src="/images/tinna.png" 
-                alt="Tinna"
+            <div 
                 style={{
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
                     marginTop: '4px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    objectFit: 'cover'
+                    background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '600'
                 }}
-            />
+            >
+                S
+            </div>
             <div style={{
                 padding: '12px 16px',
                 borderRadius: '16px',
-                backgroundColor: '#f0f0f0',
+                backgroundColor: '#f8fafc',
                 display: 'flex',
                 gap: '4px',
                 alignItems: 'center',
@@ -95,6 +98,27 @@ const ChatWidget = ({
         
         setIsTyping(true);
 
+        // Demo response - replace with actual API call
+        setTimeout(() => {
+            const demoResponses = [
+                "This is a demo chatbot interface! The design features beautiful gradients and smooth animations.",
+                "I love the color scheme! It reminds me of ocean waves meeting sunset skies.",
+                "You can customize this interface to match any brand or aesthetic you prefer.",
+                "The responsive design works perfectly across all devices - desktop, tablet, and mobile!",
+                "Feel free to explore all the interactive features and smooth transitions."
+            ];
+            
+            const randomResponse = demoResponses[Math.floor(Math.random() * demoResponses.length)];
+            
+            setIsTyping(false);
+            setMessages(prev => [...prev, {
+                type: 'bot',
+                content: randomResponse
+            }]);
+        }, 1500);
+
+        /* 
+        // Uncomment and modify for real API integration:
         try {
             const response = await fetch(webhookUrl, {
                 method: 'POST',
@@ -105,7 +129,7 @@ const ChatWidget = ({
                 body: JSON.stringify({ 
                     message: messageText,
                     language: language,
-                    sessionId: sessionId // Send session ID to maintain context
+                    sessionId: sessionId
                 })
             });   
 
@@ -125,6 +149,7 @@ const ChatWidget = ({
                     "Ég biðst afsökunar, en ég er að lenda í vandræðum með tengingu núna. Vinsamlegast reyndu aftur eftir smá stund."
             }]);
         }
+        */
     };
 
     return (
@@ -135,15 +160,15 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: '#FFFFFF', // White background for both states
+            backgroundColor: '#FFFFFF',
             borderRadius: isMinimized ? '50%' : '16px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-            border: '1px solid rgba(0, 0, 0, 0.05)',
-            fontFamily: theme.fonts.body,
+            boxShadow: '0 8px 32px rgba(20, 184, 166, 0.15), 0 4px 16px rgba(249, 115, 22, 0.1)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            fontFamily: theme?.fonts?.body || "'Helvetica Neue', Arial, sans-serif",
             overflow: 'hidden',
             transformOrigin: 'bottom right',
             transition: 'all 0.3s ease',
-            backdropFilter: 'blur(8px)',
+            backdropFilter: 'blur(12px)',
             zIndex: 9999,
             maxWidth: isMinimized ? 'auto' : '90vw'
         }}>
@@ -157,28 +182,34 @@ const ChatWidget = ({
                     justifyContent: isMinimized ? 'center' : 'center',
                     cursor: 'pointer',
                     gap: '12px',
-                    backgroundColor: '#FFFFFF', // White background for header
+                    background: isMinimized ? 'linear-gradient(135deg, #14b8a6, #f97316)' : 'linear-gradient(135deg, #f8fafc, #ffffff)',
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
                     flexDirection: 'column',
-                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+                    boxShadow: isMinimized ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.05)',
                     borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.1)',
                     position: 'relative'
                 }}
             >
-                <img 
-                    src="/images/tinna.png" 
-                    alt="Tinna" 
-                    style={{ 
+                <div 
+                    style={{
                         height: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         borderRadius: '50%',
-                        objectFit: 'cover',
-                        boxShadow: isMinimized ? '0 1px 3px rgba(0, 0, 0, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        border: `2px solid ${brandOrange}` // Orange border for consistency
+                        boxShadow: isMinimized ? '0 2px 8px rgba(0, 0, 0, 0.2)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+                        background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        fontSize: isMinimized ? '20px' : '24px',
+                        fontWeight: '600',
+                        border: '2px solid rgba(255, 255, 255, 0.3)'
                     }}
-                />
+                >
+                    S
+                </div>
                 {!isMinimized && (
                     <div style={{
                         display: 'flex',
@@ -188,24 +219,27 @@ const ChatWidget = ({
                         marginTop: '4px'
                     }}>
                         <span style={{ 
-                            color: '#333333', // Dark text for contrast
+                            color: '#1f2937',
                             fontSize: '16px',
                             fontWeight: '600',
                         }}>
-                            Tinna
+                            Sólrún
                         </span>
                         <span style={{ 
-                            color: brandOrange, // Orange for brand identity
+                            background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
                             fontSize: '14px',
-                            fontWeight: '500'
+                            fontWeight: '600'
                         }}>
-                            LAVA SHOW
+                            AI ASSISTANT
                         </span>
                     </div>
                 )}
                 {!isMinimized && (
                     <span style={{ 
-                        color: '#777777', // Mid-gray for subtle contrast
+                        color: '#6b7280',
                         fontSize: '12px',
                         position: 'absolute',
                         right: '16px',
@@ -239,30 +273,40 @@ const ChatWidget = ({
                                 gap: '8px'
                             }}>
                                 {msg.type === 'bot' && (
-                                    <img 
-                                        src="/images/tinna.png" 
-                                        alt="Tinna"
+                                    <div 
                                         style={{
                                             width: '30px',
                                             height: '30px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
                                             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                            objectFit: 'cover'
+                                            background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            color: 'white',
+                                            fontSize: '14px',
+                                            fontWeight: '600'
                                         }}
-                                    />
+                                    >
+                                        S
+                                    </div>
                                 )}
                                 <div style={{
                                     maxWidth: '70%',
                                     padding: '12px 16px',
                                     borderRadius: '16px',
-                                    backgroundColor: msg.type === 'user' ? brandOrange : '#f0f0f0',
-                                    color: msg.type === 'user' ? 'white' : '#333333',
+                                    background: msg.type === 'user' ? 
+                                        'linear-gradient(135deg, #14b8a6, #0891b2)' : 
+                                        '#f8fafc',
+                                    color: msg.type === 'user' ? 'white' : '#374151',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
-                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+                                    boxShadow: msg.type === 'user' ? 
+                                        '0 4px 12px rgba(20, 184, 166, 0.3)' : 
+                                        '0 2px 8px rgba(0, 0, 0, 0.05)',
                                     border: msg.type === 'user' ? 
-                                        '1px solid rgba(255, 255, 255, 0.1)' : 
+                                        '1px solid rgba(255, 255, 255, 0.2)' : 
                                         '1px solid rgba(0, 0, 0, 0.05)'
                                 }}>
                                     {msg.type === 'bot' ? (
@@ -283,8 +327,8 @@ const ChatWidget = ({
             {!isMinimized && (
                 <div style={{
                     padding: '12px 16px',
-                    backgroundColor: 'white',
-                    borderTop: '1px solid #eee',
+                    background: 'linear-gradient(135deg, #f8fafc, #ffffff)',
+                    borderTop: '1px solid #e5e7eb',
                     display: 'flex',
                     gap: '8px'
                 }}>
@@ -296,12 +340,13 @@ const ChatWidget = ({
                         placeholder={language === 'en' ? "Type your message..." : "Skrifaðu skilaboð..."}
                         style={{
                             flex: 1,
-                            padding: '8px 16px',
-                            borderRadius: '20px',
-                            border: '1px solid #ddd',
+                            padding: '10px 16px',
+                            borderRadius: '24px',
+                            border: '2px solid #e5e7eb',
                             outline: 'none',
                             fontSize: '14px',
                             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                            transition: 'all 0.3s ease'
                         }}
                         className="chat-input"
                     />
@@ -309,15 +354,19 @@ const ChatWidget = ({
                         onClick={handleSend}
                         disabled={isTyping}
                         style={{
-                            backgroundColor: isTyping ? '#a0a0a0' : brandOrange,
+                            background: isTyping ? 
+                                'linear-gradient(135deg, #9ca3af, #6b7280)' : 
+                                'linear-gradient(135deg, #14b8a6, #f97316)',
                             color: 'white',
                             border: 'none',
-                            padding: '8px 20px',
-                            borderRadius: '20px',
+                            padding: '10px 20px',
+                            borderRadius: '24px',
                             cursor: isTyping ? 'default' : 'pointer',
                             fontSize: '14px',
-                            fontWeight: '500',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                            fontWeight: '600',
+                            boxShadow: isTyping ? 
+                                'none' : 
+                                '0 4px 12px rgba(20, 184, 166, 0.3)',
                             opacity: isTyping ? 0.7 : 1,
                             transition: 'all 0.3s ease'
                         }}
@@ -345,7 +394,7 @@ const ChatWidget = ({
                 .typing-dot {
                     width: 8px;
                     height: 8px;
-                    background-color: #555555; /* Darker for better visibility */
+                    background: linear-gradient(135deg, #14b8a6, #f97316);
                     border-radius: 50%;
                     display: inline-block;
                     margin: 0 1px;
@@ -365,15 +414,15 @@ const ChatWidget = ({
                 }
                 
                 .chat-input:focus {
-                    border-color: ${brandOrange};
-                    box-shadow: 0 0 0 2px rgba(255, 76, 29, 0.1);
+                    border-color: #14b8a6;
+                    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
                     background-color: white;
                 }
                 
-                .send-button:hover {
-                    background-color: #E63E00;
+                .send-button:hover:not(:disabled) {
+                    background: linear-gradient(135deg, #0f766e, #ea580c);
                     transform: translateY(-2px);
-                    box-shadow: 0 4px 8px rgba(255, 76, 29, 0.3);
+                    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.4);
                 }
                 
                 @media (max-width: 768px) {

@@ -1,82 +1,96 @@
 import React from 'react';
 import ChatWidget from './ChatWidget';
 
-const LavaShowDemo = () => {
+const ShowcaseDemo = () => {
   return (
-    <div className="relative bg-black text-white">
+    <div className="relative bg-white text-gray-900 min-h-screen">
       {/* Hero Section */}
       <div className="relative h-screen flex flex-col justify-center">
-        {/* Background Image */}
-        <img 
-          src="/images/icelandic-lava-show.jpg" 
-          alt="Lava Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
-        />
-
         {/* Hero Content */}
         <div className="relative px-8 pt-24 max-w-7xl mx-auto">
           <h1 
-            className="text-7xl md:text-8xl lg:text-9xl font-bold mb-12 tracking-tight"
+            className="text-6xl md:text-7xl lg:text-8xl font-bold mb-12 tracking-tight text-gray-900"
             style={{
-              lineHeight: '1.1',
-              textShadow: '2px 2px 8px rgba(0, 0, 0, 0.7)'
+              lineHeight: '1.1'
             }}
           >
-            THE ONLY LIVE
+            CREATIVE
             <br />
-            LAVA SHOW
+            <span className="bg-gradient-to-r from-teal-500 via-blue-500 to-orange-400 bg-clip-text text-transparent">
+              CHATBOT
+            </span>
             <br />
-            IN THE WORLD
+            SHOWCASE
           </h1>
 
           <div className="mt-12 max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-semibold text-[#FF4B12] mb-4">
-              Welcome to Our Demo Environment
+            <h2 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-teal-600 to-orange-500 bg-clip-text text-transparent mb-6">
+              Interactive Demo Environment
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300">
-              Experience our interactive chat assistant and explore what Lava Show has to offer.
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
+              Experience our beautiful chat interface with smooth animations, 
+              responsive design, and elegant user interactions.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Additional Content Sections */}
-      <div className="relative bg-black/90">
-        {/* Experience Section */}
+      {/* Features Sections */}
+      <div className="relative bg-gray-50">
+        {/* Technology Section */}
         <section className="py-24 px-8">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-[#FF4B12]">
-              Experience Real Molten Lava
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+              Modern Technology Stack
             </h2>
             <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-2xl font-semibold mb-4">Unique Demonstrations</h3>
-                <p className="text-gray-300 text-lg">
-                  Watch as our experts manipulate real molten lava, heated to over 1,000°C, 
-                  creating a spectacular display of nature's raw power.
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <h3 className="text-2xl font-semibold mb-4 text-gray-900">React & Modern JS</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Built with cutting-edge React components, featuring hooks, 
+                  state management, and smooth real-time interactions.
                 </p>
               </div>
-              <div>
-                <h3 className="text-2xl font-semibold mb-4">Interactive Learning</h3>
-                <p className="text-gray-300 text-lg">
-                  Discover the science behind volcanoes and learn about Iceland's unique 
-                  geological features through our engaging presentations.
+              <div className="bg-white p-8 rounded-2xl shadow-lg">
+                <h3 className="text-2xl font-semibold mb-4 text-gray-900">Responsive Design</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Fully responsive interface that adapts beautifully across 
+                  desktop, tablet, and mobile devices.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Safety Section */}
-        <section className="py-24 px-8 bg-black/50">
+        {/* Design Section */}
+        <section className="py-24 px-8 bg-white">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-white">
-              Safety First
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+              Beautiful Interface
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl">
-              Our facility is designed with state-of-the-art safety measures, ensuring 
-              you can enjoy the raw power of molten lava in complete security.
-            </p>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center p-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-white text-2xl">💬</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Smooth Animations</h3>
+                <p className="text-gray-600">Delightful micro-interactions and smooth transitions</p>
+              </div>
+              <div className="text-center p-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-white text-2xl">🎨</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Modern Aesthetics</h3>
+                <p className="text-gray-600">Clean, contemporary design with beautiful gradients</p>
+              </div>
+              <div className="text-center p-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                  <span className="text-white text-2xl">⚡</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Fast Performance</h3>
+                <p className="text-gray-600">Optimized for speed and smooth user experience</p>
+              </div>
+            </div>
           </div>
         </section>
       </div>
@@ -87,4 +101,4 @@ const LavaShowDemo = () => {
   );
 };
 
-export default LavaShowDemo;
+export default ShowcaseDemo;
