@@ -3,21 +3,21 @@ import { theme } from '../styles/theme';
 import MessageFormatter from './MessageFormatter';
 
 const ChatWidget = ({ 
-    webhookUrl = 'https://demo-chat-endpoint.vercel.app/chat', 
+    webhookUrl = 'http://localhost:8080/chat', // Point to your backend
     apiKey, 
-    language = 'en' 
+    language = 'is' // Default to Icelandic
 }) => {
     const messagesEndRef = useRef(null);
     const [isMinimized, setIsMinimized] = useState(true);
     const [messages, setMessages] = useState([{
         type: 'bot',
-        content: language === 'en' ? 
-            "Hello! I'm Sólrún, your AI assistant. I'm here to help you explore this interactive demo and answer any questions you might have!" :
-            "Hæ! Ég er Sólrún og er AI aðstoðarmaður. Hvernig get ég aðstoðað þig?"
+        content: "Hæ! Ég er Sólrún og hjálpa með bókun tíma. Ertu að leita að tíma um helgina?"
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [sessionId, setSessionId] = useState('');
+    const [showTimeButtons, setShowTimeButtons] = useState(false);
+    const [timeOptions, setTimeOptions] = useState([]);
     // Add window width tracking for responsive design
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
     
@@ -85,11 +85,44 @@ const ChatWidget = ({
         </div>
     );
 
-    const handleSend = async () => {
-        if (!inputValue.trim() || isTyping) return;
+    const TimeButton = ({ time, text, onClick }) => (
+        <button
+            onClick={onClick}
+            style={{
+                background: 'linear-gradient(135deg, #14b8a6, #0891b2)',
+                color: 'white',
+                border: 'none',
+                padding: '12px 20px',
+                borderRadius: '20px',
+                margin: '4px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(20, 184, 166, 0.3)',
+                transition: 'all 0.3s ease',
+                minWidth: '120px'
+            }}
+            onMouseOver={(e) => {
+                e.target.style.background = 'linear-gradient(135deg, #0f766e, #0e7490)';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 16px rgba(20, 184, 166, 0.4)';
+            }}
+            onMouseOut={(e) => {
+                e.target.style.background = 'linear-gradient(135deg, #14b8a6, #0891b2)';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 12px rgba(20, 184, 166, 0.3)';
+            }}
+        >
+            {text}
+        </button>
+    );
 
-        const messageText = inputValue.trim();
+    const handleSend = async (messageToSend = null) => {
+        const messageText = messageToSend || inputValue.trim();
+        if (!messageText || isTyping) return;
+
         setInputValue('');
+        setShowTimeButtons(false); // Hide time buttons when sending new message
 
         setMessages(prev => [...prev, {
             type: 'user',
@@ -98,33 +131,12 @@ const ChatWidget = ({
         
         setIsTyping(true);
 
-        // Demo response - replace with actual API call
-        setTimeout(() => {
-            const demoResponses = [
-                "This is a demo chatbot interface! The design features beautiful gradients and smooth animations.",
-                "I love the color scheme! It reminds me of ocean waves meeting sunset skies.",
-                "You can customize this interface to match any brand or aesthetic you prefer.",
-                "The responsive design works perfectly across all devices - desktop, tablet, and mobile!",
-                "Feel free to explore all the interactive features and smooth transitions."
-            ];
-            
-            const randomResponse = demoResponses[Math.floor(Math.random() * demoResponses.length)];
-            
-            setIsTyping(false);
-            setMessages(prev => [...prev, {
-                type: 'bot',
-                content: randomResponse
-            }]);
-        }, 1500);
-
-        /* 
-        // Uncomment and modify for real API integration:
         try {
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': apiKey || process.env.REACT_APP_API_KEY
+                    'x-api-key': apiKey || process.env.REACT_APP_API_KEY || 'demo-key'
                 },
                 body: JSON.stringify({ 
                     message: messageText,
@@ -135,21 +147,31 @@ const ChatWidget = ({
 
             const data = await response.json();
             setIsTyping(false);
+            
             setMessages(prev => [...prev, {
                 type: 'bot',
                 content: data.message
             }]);
+
+            // Handle animation trigger from backend
+            if (data.showTimeButtons && data.timeOptions) {
+                setShowTimeButtons(true);
+                setTimeOptions(data.timeOptions);
+            }
+
         } catch (error) {
             console.error('Error:', error);
             setIsTyping(false);
             setMessages(prev => [...prev, {
                 type: 'bot',
-                content: language === 'en' ? 
-                    "I apologize, but I'm having trouble connecting right now. Please try again shortly." :
-                    "Ég biðst afsökunar, en ég er að lenda í vandræðum með tengingu núna. Vinsamlegast reyndu aftur eftir smá stund."
+                content: "Ég biðst afsökunar, en ég er að lenda í tæknilegum vandamálum. Vinsamlegast reyndu aftur."
             }]);
         }
-        */
+    };
+
+    const handleTimeSelection = (timeOption) => {
+        // Send the time selection as a message
+        handleSend(timeOption.text);
     };
 
     return (
@@ -233,7 +255,7 @@ const ChatWidget = ({
                             fontSize: '14px',
                             fontWeight: '600'
                         }}>
-                            AI ASSISTANT
+                            AI AÐSTOÐARMAÐUR
                         </span>
                     </div>
                 )}
@@ -318,6 +340,45 @@ const ChatWidget = ({
                             </div>
                         </div>
                     ))}
+                    
+                    {/* Show time selection buttons */}
+                    {showTimeButtons && timeOptions.length > 0 && (
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: '8px',
+                            marginTop: '16px',
+                            padding: '16px',
+                            background: 'linear-gradient(135deg, #f0fdfa, #fef3e2)',
+                            borderRadius: '12px',
+                            border: '1px solid rgba(20, 184, 166, 0.2)'
+                        }}>
+                            <p style={{
+                                margin: '0 0 8px 0',
+                                color: '#374151',
+                                fontSize: '14px',
+                                fontWeight: '600'
+                            }}>
+                                Veldu tíma:
+                            </p>
+                            <div style={{
+                                display: 'flex',
+                                gap: '8px',
+                                justifyContent: 'center'
+                            }}>
+                                {timeOptions.map((option, index) => (
+                                    <TimeButton
+                                        key={index}
+                                        time={option.time}
+                                        text={option.text}
+                                        onClick={() => handleTimeSelection(option)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    
                     {isTyping && <TypingIndicator />}
                     <div ref={messagesEndRef} />
                 </div>
@@ -337,7 +398,7 @@ const ChatWidget = ({
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && !isTyping && handleSend()}
-                        placeholder={language === 'en' ? "Type your message..." : "Skrifaðu skilaboð..."}
+                        placeholder="Skrifaðu skilaboð..."
                         style={{
                             flex: 1,
                             padding: '10px 16px',
@@ -351,7 +412,7 @@ const ChatWidget = ({
                         className="chat-input"
                     />
                     <button
-                        onClick={handleSend}
+                        onClick={() => handleSend()}
                         disabled={isTyping}
                         style={{
                             background: isTyping ? 
@@ -372,7 +433,7 @@ const ChatWidget = ({
                         }}
                         className="send-button"
                     >
-                        {language === 'en' ? 'Send' : 'Senda'}
+                        Senda
                     </button>
                 </div>
             )}

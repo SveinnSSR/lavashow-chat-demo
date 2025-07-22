@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
-  color: #1f2937;
+  background-color: #000000;
+  color: #FFFFFF;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -10,36 +10,5 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   min-height: 100vh;
-  background-color: #ffffff;
-}
-
-/* Add some nice gradient utilities */
-.gradient-text {
-  background: linear-gradient(135deg, #14b8a6, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom scrollbar for webkit browsers */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #14b8a6, #f97316);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #0f766e, #ea580c);
+  background-color: #000000;
 }
