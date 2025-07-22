@@ -3,7 +3,7 @@ import { theme } from '../styles/theme';
 import MessageFormatter from './MessageFormatter';
 
 const ChatWidget = ({ 
-    webhookUrl = 'http://localhost:8080/chat', // Point to your backend
+    webhookUrl = 'https://lavashow-chat-2024.vercel.app/chat', // Your deployed backend
     apiKey, 
     language = 'is' // Default to Icelandic
 }) => {
@@ -132,11 +132,14 @@ const ChatWidget = ({
         setIsTyping(true);
 
         try {
+            console.log('Sending to:', webhookUrl);
+            console.log('Message:', messageText);
+            
             const response = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': apiKey || process.env.REACT_APP_API_KEY || 'demo-key'
+                    'x-api-key': apiKey || process.env.REACT_APP_API_KEY || 'your-api-key-here'
                 },
                 body: JSON.stringify({ 
                     message: messageText,
@@ -145,7 +148,15 @@ const ChatWidget = ({
                 })
             });   
 
+            console.log('Response status:', response.status);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const data = await response.json();
+            console.log('Response data:', data);
+            
             setIsTyping(false);
             
             setMessages(prev => [...prev, {
@@ -160,7 +171,7 @@ const ChatWidget = ({
             }
 
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Connection error:', error);
             setIsTyping(false);
             setMessages(prev => [...prev, {
                 type: 'bot',
@@ -255,7 +266,7 @@ const ChatWidget = ({
                             fontSize: '14px',
                             fontWeight: '600'
                         }}>
-                            AI AÐSTOÐARMAÐUR
+                            AI ASSISTANT
                         </span>
                     </div>
                 )}
