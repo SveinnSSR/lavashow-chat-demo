@@ -11,7 +11,7 @@ const ChatWidget = ({
     const [isMinimized, setIsMinimized] = useState(true);
     const [messages, setMessages] = useState([{
         type: 'bot',
-        content: "Hæ! Ég er Sólrún og hjálpa með bókun tíma. Ertu að leita að tíma um helgina?"
+        content: "Hello! I'm Elma, your AI customer service assistant. I can handle inquiries, bookings, and support 24/7 in multiple languages. How can I assist you today?"
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
@@ -66,7 +66,6 @@ const ChatWidget = ({
                     fontWeight: '600'
                 }}
             >
-                S
             </div>
             <div style={{
                 padding: '12px 16px',
@@ -241,7 +240,6 @@ const ChatWidget = ({
                         border: '2px solid rgba(255, 255, 255, 0.3)'
                     }}
                 >
-                    S
                 </div>
                 {!isMinimized && (
                     <div style={{
@@ -256,7 +254,7 @@ const ChatWidget = ({
                             fontSize: '16px',
                             fontWeight: '600',
                         }}>
-                            Sólrún
+                            Elma
                         </span>
                         <span style={{ 
                             background: 'linear-gradient(135deg, #14b8a6, #f97316)',
@@ -322,7 +320,6 @@ const ChatWidget = ({
                                             fontWeight: '600'
                                         }}
                                     >
-                                        S
                                     </div>
                                 )}
                                 <div style={{
@@ -409,7 +406,7 @@ const ChatWidget = ({
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && !isTyping && handleSend()}
-                        placeholder="Skrifaðu skilaboð..."
+                        placeholder=""
                         style={{
                             flex: 1,
                             padding: '10px 16px',
@@ -444,7 +441,7 @@ const ChatWidget = ({
                         }}
                         className="send-button"
                     >
-                        Senda
+                        Send
                     </button>
                 </div>
             )}
