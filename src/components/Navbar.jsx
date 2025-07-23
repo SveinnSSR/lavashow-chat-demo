@@ -1,34 +1,31 @@
 // src/components/Navbar.jsx
 import React from 'react';
+import { theme } from '../styles/theme';
 
 const Navbar = () => {
   return (
     <nav style={{
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      backdropFilter: 'blur(12px)',
+      backgroundColor: theme.colors.background,
       padding: '1rem 2rem',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderBottom: '1px solid rgba(0,0,0,0.1)',
+      borderBottom: '1px solid rgba(255,255,255,0.1)',
       position: 'fixed',
       top: 0,
       left: 0,
       right: 0,
-      zIndex: 50,
-      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+      zIndex: 50
     }}>
       {/* Logo */}
-      <div style={{
-        fontSize: '1.5rem',
-        fontWeight: '700',
-        background: 'linear-gradient(135deg, #14b8a6, #f97316)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        backgroundClip: 'text'
-      }}>
-        CHATBOT SHOWCASE
-      </div>
+      <img 
+        src="/images/lava-show-logo.png" 
+        alt="LAVA SHOW" 
+        style={{
+          height: '40px',
+          width: 'auto'
+        }}
+      />
 
       {/* Navigation Links */}
       <div style={{
@@ -39,87 +36,62 @@ const Navbar = () => {
         <a 
           href="#" 
           style={{ 
-            color: '#374151', 
+            color: '#FFFFFF', 
             textDecoration: 'none',
             padding: '0.5rem',
-            transition: 'all 0.2s ease',
-            fontWeight: '500'
+            transition: 'opacity 0.2s ease'
           }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = '#14b8a6';
-            e.currentTarget.style.transform = 'translateY(-1px)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = '#374151';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
         >
-          Features
+          Locations
         </a>
         <a 
           href="#" 
           style={{ 
-            color: '#374151', 
+            color: '#FFFFFF', 
             textDecoration: 'none',
             padding: '0.5rem',
-            transition: 'all 0.2s ease',
-            fontWeight: '500'
+            transition: 'opacity 0.2s ease'
           }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = '#14b8a6';
-            e.currentTarget.style.transform = 'translateY(-1px)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = '#374151';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
         >
-          Demo
+          Giftcards
         </a>
         <a 
           href="#" 
           style={{ 
-            color: '#374151', 
+            color: '#FFFFFF', 
             textDecoration: 'none',
             padding: '0.5rem',
-            transition: 'all 0.2s ease',
-            fontWeight: '500'
+            transition: 'opacity 0.2s ease'
           }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = '#14b8a6';
-            e.currentTarget.style.transform = 'translateY(-1px)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = '#374151';
-            e.currentTarget.style.transform = 'translateY(0)';
-          }}
+          onMouseOver={(e) => e.currentTarget.style.opacity = '0.8'}
+          onMouseOut={(e) => e.currentTarget.style.opacity = '1'}
         >
-          About
+          About us
         </a>
         <button 
           style={{
-            background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+            backgroundColor: theme.colors.primary,
             color: '#FFFFFF',
             border: 'none',
             padding: '0.75rem 1.5rem',
-            borderRadius: '25px',
+            borderRadius: '4px',
             cursor: 'pointer',
-            transition: 'all 0.3s ease',
-            fontWeight: '600',
-            boxShadow: '0 4px 12px rgba(20, 184, 166, 0.3)'
+            transition: 'all 0.2s ease'
           }}
           onMouseOver={(e) => {
-            e.currentTarget.style.background = 'linear-gradient(135deg, #0f766e, #ea580c)';
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 6px 16px rgba(20, 184, 166, 0.4)';
+            e.currentTarget.style.opacity = '0.9';
+            e.currentTarget.style.transform = 'translateY(-1px)';
           }}
           onMouseOut={(e) => {
-            e.currentTarget.style.background = 'linear-gradient(135deg, #14b8a6, #f97316)';
+            e.currentTarget.style.opacity = '1';
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 12px rgba(20, 184, 166, 0.3)';
           }}
         >
-          TRY DEMO
+          GET TICKETS NOW
         </button>
       </div>
     </nav>
