@@ -329,7 +329,7 @@ const ChatWidget = ({
                                     background: msg.type === 'user' ? 
                                         'linear-gradient(135deg, #14b8a6, #0891b2)' : 
                                         '#f8fafc',
-                                    color: msg.type === 'user' ? 'white' : '#4b5563',
+                                    color: msg.type === 'user' ? 'white' : '#374151',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
                                     boxShadow: msg.type === 'user' ? 
