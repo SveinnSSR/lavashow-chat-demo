@@ -5,13 +5,13 @@ import MessageFormatter from './MessageFormatter';
 const ChatWidget = ({ 
     webhookUrl = 'https://lavashow-chat-2024.vercel.app/chat', // Your deployed backend
     apiKey, 
-    language = 'is' // Default to Icelandic
+    language = 'en' // Default to English for showcase
 }) => {
     const messagesEndRef = useRef(null);
     const [isMinimized, setIsMinimized] = useState(true);
     const [messages, setMessages] = useState([{
         type: 'bot',
-        content: "Hello! I'm Elma, your AI customer service assistant. I can handle inquiries, bookings, and support 24/7 in multiple languages. How can I assist you today?"
+        content: "Hello! I'm Sóley, your AI customer service assistant. I can handle inquiries, bookings, and support 24/7 in multiple languages. How can I assist you today?"
     }]);
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
@@ -174,7 +174,7 @@ const ChatWidget = ({
             setIsTyping(false);
             setMessages(prev => [...prev, {
                 type: 'bot',
-                content: "Ég biðst afsökunar, en ég er að lenda í tæknilegum vandamálum. Vinsamlegast reyndu aftur."
+                content: "I apologize, but I'm experiencing technical difficulties right now. Please try again shortly."
             }]);
         }
     };
@@ -254,7 +254,7 @@ const ChatWidget = ({
                             fontSize: '16px',
                             fontWeight: '600',
                         }}>
-                            Elma
+                            Sóley
                         </span>
                         <span style={{ 
                             background: 'linear-gradient(135deg, #14b8a6, #f97316)',
@@ -329,7 +329,7 @@ const ChatWidget = ({
                                     background: msg.type === 'user' ? 
                                         'linear-gradient(135deg, #14b8a6, #0891b2)' : 
                                         '#f8fafc',
-                                    color: msg.type === 'user' ? 'white' : '#374151',
+                                    color: msg.type === 'user' ? 'white' : '#6b7280',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
                                     boxShadow: msg.type === 'user' ? 
@@ -368,7 +368,7 @@ const ChatWidget = ({
                                 fontSize: '14px',
                                 fontWeight: '600'
                             }}>
-                                Veldu tíma:
+                                Choose a time:
                             </p>
                             <div style={{
                                 display: 'flex',
