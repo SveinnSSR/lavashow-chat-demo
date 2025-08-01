@@ -39,43 +39,11 @@ const ChatWidget = ({
     }, [messages, isTyping]);
 
     const TypingIndicator = () => (
-        <div style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            marginBottom: '16px',
-            alignItems: 'flex-start',
-            gap: '12px'
-        }}>
-            <div 
-                style={{
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    marginTop: '4px',
-                    background: 'linear-gradient(135deg, #22c55e, #f97316)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '14px',
-                    fontWeight: '600',
-                    border: '2px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-                }}
-            >
+        <div className="flex justify-start mb-4 items-start gap-3">
+            <div className="w-8 h-8 rounded-full mt-1 bg-gradient-to-r from-[#10B981] to-[#F97316] flex items-center justify-center text-white text-sm font-semibold shadow-md">
                 S
             </div>
-            <div style={{
-                padding: '14px 18px',
-                borderRadius: '20px',
-                background: 'rgba(255, 255, 255, 0.25)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                display: 'flex',
-                gap: '6px',
-                alignItems: 'center',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
-            }}>
+            <div className="bg-white/70 backdrop-blur-sm rounded-xl px-4 py-2 shadow-sm border border-white/20 flex gap-1 items-center">
                 <span className="typing-dot"></span>
                 <span className="typing-dot"></span>
                 <span className="typing-dot"></span>
@@ -86,30 +54,7 @@ const ChatWidget = ({
     const TimeButton = ({ time, text, onClick }) => (
         <button
             onClick={onClick}
-            style={{
-                background: 'linear-gradient(135deg, #22c55e, #f97316)',
-                color: 'white',
-                border: 'none',
-                padding: '12px 20px',
-                borderRadius: '25px',
-                margin: '4px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontWeight: '600',
-                boxShadow: '0 4px 20px rgba(34, 197, 94, 0.3)',
-                transition: 'all 0.3s ease',
-                minWidth: '120px',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-            }}
-            onMouseOver={(e) => {
-                e.target.style.transform = 'translateY(-2px) scale(1.05)';
-                e.target.style.boxShadow = '0 8px 30px rgba(34, 197, 94, 0.4)';
-            }}
-            onMouseOut={(e) => {
-                e.target.style.transform = 'translateY(0) scale(1)';
-                e.target.style.boxShadow = '0 4px 20px rgba(34, 197, 94, 0.3)';
-            }}
+            className="bg-gradient-to-r from-[#10B981] to-[#F97316] text-white border-none px-5 py-3 rounded-full cursor-pointer text-sm font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg min-w-[120px]"
         >
             {text}
         </button>
@@ -182,205 +127,100 @@ const ChatWidget = ({
     };
 
     const MessageFormatter = ({ message }) => {
-        return <div style={{ whiteSpace: 'pre-wrap' }}>{message}</div>;
+        return <div className="whitespace-pre-wrap">{message}</div>;
     };
 
     return (
         <>
-            {/* Background gradient that extends beyond widget */}
-            <div style={{
-                position: 'fixed',
-                bottom: '0px',
-                right: '0px',
-                width: isMinimized ? '100px' : '450px',
-                height: isMinimized ? '100px' : '550px',
-                background: 'linear-gradient(135deg, #14b8a6 0%, #22c55e 25%, #f59e0b 50%, #f97316 75%, #ec4899 100%)',
-                borderRadius: '25px',
-                opacity: isMinimized ? '0.8' : '1',
-                filter: 'blur(1px)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                zIndex: 9998,
-                pointerEvents: 'none'
-            }} />
-
-            <div style={{
-                position: 'fixed',
-                bottom: '20px',
-                right: '20px',
-                width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
-                height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
-                maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-                background: isMinimized ? 'transparent' : 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: isMinimized ? 'none' : 'blur(20px)',
-                borderRadius: isMinimized ? '50%' : '25px',
-                border: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.3)',
-                boxShadow: isMinimized ? 
-                    '0 10px 40px rgba(0, 0, 0, 0.3)' : 
-                    '0 25px 80px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4)',
-                fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
-                overflow: 'hidden',
-                transformOrigin: 'bottom right',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                zIndex: 9999,
-                maxWidth: isMinimized ? 'auto' : '90vw'
-            }}>
+            <style jsx>{`
+                @keyframes typingAnimation {
+                    0%, 100% { opacity: 0.4; }
+                    50% { opacity: 1; }
+                }
+                
+                .typing-dot {
+                    width: 6px;
+                    height: 6px;
+                    background: #10B981;
+                    border-radius: 50%;
+                    display: inline-block;
+                    margin: 0 1px;
+                    animation: typingAnimation 1.4s infinite;
+                }
+                
+                .typing-dot:nth-child(1) { animation-delay: 0s; }
+                .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+                .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+                
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                
+                * {
+                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                }
+            `}</style>
+            
+            <div 
+                className={`fixed bottom-5 right-5 transition-all duration-300 ease-out z-50 ${
+                    isMinimized 
+                        ? `w-${windowWidth <= 768 ? '16' : '18'} h-${windowWidth <= 768 ? '16' : '18'} rounded-full` 
+                        : 'w-96 max-w-[90vw] bg-white/60 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl'
+                }`}
+                style={{
+                    maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
+                    transformOrigin: 'bottom right'
+                }}
+            >
                 {/* Header */}
                 <div 
                     onClick={() => setIsMinimized(!isMinimized)}
-                    style={{
-                        padding: isMinimized ? '0' : '24px 20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: isMinimized ? 'center' : 'center',
-                        cursor: 'pointer',
-                        gap: '12px',
-                        background: isMinimized ? 
-                            'linear-gradient(135deg, #22c55e, #f97316)' : 
-                            'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: isMinimized ? 'none' : 'blur(10px)',
-                        width: '100%',
-                        height: isMinimized ? '100%' : 'auto',
-                        boxSizing: 'border-box',
-                        flexDirection: 'column',
-                        borderBottom: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
-                        position: 'relative',
-                        borderRadius: isMinimized ? '50%' : '25px 25px 0 0',
-                        transition: 'all 0.3s ease'
-                    }}
-                    onMouseOver={(e) => {
-                        if (isMinimized) {
-                            e.currentTarget.style.transform = 'scale(1.1)';
-                            e.currentTarget.style.boxShadow = '0 15px 50px rgba(0, 0, 0, 0.4)';
-                        }
-                    }}
-                    onMouseOut={(e) => {
-                        if (isMinimized) {
-                            e.currentTarget.style.transform = 'scale(1)';
-                            e.currentTarget.style.boxShadow = 'none';
-                        }
-                    }}
+                    className={`cursor-pointer transition-all duration-300 ${
+                        isMinimized 
+                            ? 'w-full h-full rounded-full bg-gradient-to-r from-[#10B981] to-[#F97316] flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-105' 
+                            : 'p-5 bg-white/40 backdrop-blur-sm border-b border-white/20 rounded-t-2xl flex flex-col items-center gap-2'
+                    }`}
                 >
                     <div 
-                        style={{
-                            height: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '70px',
-                            width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '70px',
-                            borderRadius: '50%',
-                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-                            background: 'linear-gradient(135deg, #22c55e, #f97316)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'white',
-                            fontSize: isMinimized ? '20px' : '28px',
-                            fontWeight: '700',
-                            border: '3px solid rgba(255, 255, 255, 0.4)',
-                            transition: 'all 0.3s ease'
-                        }}
+                        className={`rounded-full bg-gradient-to-r from-[#10B981] to-[#F97316] flex items-center justify-center text-white font-bold ${
+                            isMinimized 
+                                ? `w-${windowWidth <= 768 ? '10' : '12'} h-${windowWidth <= 768 ? '10' : '12'} text-${windowWidth <= 768 ? 'lg' : 'xl'}` 
+                                : 'w-14 h-14 text-xl shadow-md'
+                        }`}
                     >
                         S
                     </div>
                     {!isMinimized && (
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: '6px',
-                            marginTop: '8px'
-                        }}>
-                            <span style={{ 
-                                color: 'white',
-                                fontSize: '22px',
-                                fontWeight: '700',
-                                letterSpacing: '-0.02em',
-                                textShadow: '0 2px 10px rgba(0, 0, 0, 0.3)'
-                            }}>
-                                Sóley
-                            </span>
-                            <span style={{ 
-                                color: 'rgba(255, 255, 255, 0.8)',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                letterSpacing: '0.1em',
-                                textShadow: '0 1px 5px rgba(0, 0, 0, 0.2)'
-                            }}>
-                                AI ASSISTANT
-                            </span>
-                        </div>
-                    )}
-                    {!isMinimized && (
-                        <span style={{ 
-                            color: 'rgba(255, 255, 255, 0.6)',
-                            fontSize: '14px',
-                            position: 'absolute',
-                            right: '20px',
-                            top: '20px',
-                            transition: 'all 0.2s ease'
-                        }}>
-                            ▽
-                        </span>
+                        <>
+                            <div className="text-center">
+                                <div className="text-gray-800 text-lg font-semibold">
+                                    Sóley
+                                </div>
+                                <div className="text-sm font-medium text-gray-600">
+                                    AI ASSISTANT
+                                </div>
+                            </div>
+                            <div className="absolute top-4 right-4 text-gray-400 text-sm">
+                                ▽
+                            </div>
+                        </>
                     )}
                 </div>
 
-                {/* Chat area */}
+                {/* Chat Area */}
                 {!isMinimized && (
-                    <div style={{
-                        height: '400px',
-                        backgroundColor: 'transparent',
-                        overflowY: 'auto',
-                        padding: '20px',
-                        background: 'rgba(255, 255, 255, 0.05)'
-                    }}>
+                    <div className="h-96 overflow-y-auto p-4">
                         {messages.map((msg, index) => (
-                            <div key={index} style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: msg.type === 'user' ? 'flex-end' : 'flex-start',
-                                marginBottom: msg.type === 'bot' ? '20px' : '16px',
-                            }}>
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: msg.type === 'user' ? 'flex-end' : 'flex-start',
-                                    alignItems: 'flex-start',
-                                    width: '100%',
-                                    gap: '12px'
-                                }}>
+                            <div key={index} className={`flex mb-4 ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`flex items-start gap-3 max-w-[80%] ${msg.type === 'user' ? 'flex-row-reverse' : ''}`}>
                                     {msg.type === 'bot' && (
-                                        <div 
-                                            style={{
-                                                width: '32px',
-                                                height: '32px',
-                                                borderRadius: '50%',
-                                                marginTop: '4px',
-                                                background: 'linear-gradient(135deg, #22c55e, #f97316)',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                color: 'white',
-                                                fontSize: '14px',
-                                                fontWeight: '600',
-                                                border: '2px solid rgba(255, 255, 255, 0.3)',
-                                                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)'
-                                            }}
-                                        >
+                                        <div className="w-8 h-8 rounded-full mt-1 bg-gradient-to-r from-[#10B981] to-[#F97316] flex items-center justify-center text-white text-sm font-semibold shadow-md">
                                             S
                                         </div>
                                     )}
-                                    <div style={{
-                                        maxWidth: '75%',
-                                        padding: '16px 20px',
-                                        borderRadius: '20px',
-                                        background: msg.type === 'user' ? 
-                                            'linear-gradient(135deg, #22c55e, #f97316)' : 
-                                            'rgba(255, 255, 255, 0.25)',
-                                        backdropFilter: 'blur(20px)',
-                                        color: msg.type === 'user' ? 'white' : 'rgba(255, 255, 255, 0.9)',
-                                        fontSize: '14px',
-                                        lineHeight: '1.6',
-                                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                                        border: '1px solid rgba(255, 255, 255, 0.3)',
-                                        transition: 'all 0.2s ease',
-                                        textShadow: msg.type === 'user' ? '0 1px 2px rgba(0, 0, 0, 0.2)' : 'none'
-                                    }}>
+                                    <div className={`rounded-xl px-4 py-2 shadow-sm text-sm leading-relaxed ${
+                                        msg.type === 'user' 
+                                            ? 'bg-gradient-to-r from-[#10B981] to-[#F97316] text-white' 
+                                            : 'bg-white/70 backdrop-blur-sm text-gray-800 border border-white/20'
+                                    }`}>
                                         {msg.type === 'bot' ? (
                                             <MessageFormatter message={msg.content} />
                                         ) : (
@@ -391,35 +231,13 @@ const ChatWidget = ({
                             </div>
                         ))}
                         
-                        {/* Show time selection buttons */}
+                        {/* Time Selection Buttons */}
                         {showTimeButtons && timeOptions.length > 0 && (
-                            <div style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                gap: '12px',
-                                marginTop: '20px',
-                                padding: '20px',
-                                background: 'rgba(255, 255, 255, 0.15)',
-                                backdropFilter: 'blur(20px)',
-                                borderRadius: '20px',
-                                border: '1px solid rgba(255, 255, 255, 0.3)',
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)'
-                            }}>
-                                <p style={{
-                                    margin: '0 0 8px 0',
-                                    color: 'rgba(255, 255, 255, 0.9)',
-                                    fontSize: '15px',
-                                    fontWeight: '600'
-                                }}>
+                            <div className="flex flex-col items-center gap-3 mt-4 p-4 bg-white/40 backdrop-blur-sm rounded-xl border border-white/30">
+                                <p className="text-gray-700 text-sm font-semibold mb-2">
                                     Choose a time:
                                 </p>
-                                <div style={{
-                                    display: 'flex',
-                                    gap: '10px',
-                                    justifyContent: 'center',
-                                    flexWrap: 'wrap'
-                                }}>
+                                <div className="flex gap-2 justify-center flex-wrap">
                                     {timeOptions.map((option, index) => (
                                         <TimeButton
                                             key={index}
@@ -437,146 +255,32 @@ const ChatWidget = ({
                     </div>
                 )}
 
-                {/* Input area */}
+                {/* Input Area */}
                 {!isMinimized && (
-                    <div style={{
-                        padding: '20px',
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        backdropFilter: 'blur(20px)',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.2)',
-                        borderRadius: '0 0 25px 25px',
-                        display: 'flex',
-                        gap: '12px',
-                        alignItems: 'center'
-                    }}>
-                        <input
-                            type="text"
-                            value={inputValue}
-                            onChange={(e) => setInputValue(e.target.value)}
-                            onKeyPress={(e) => e.key === 'Enter' && !isTyping && handleSend()}
-                            placeholder="Type a message..."
-                            style={{
-                                flex: 1,
-                                padding: '14px 20px',
-                                borderRadius: '25px',
-                                border: '1px solid rgba(255, 255, 255, 0.3)',
-                                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                backdropFilter: 'blur(10px)',
-                                outline: 'none',
-                                fontSize: '14px',
-                                color: 'rgba(255, 255, 255, 0.9)',
-                                boxShadow: 'inset 0 2px 10px rgba(0, 0, 0, 0.1)',
-                                transition: 'all 0.3s ease'
-                            }}
-                            className="chat-input"
-                        />
-                        <button
-                            onClick={() => handleSend()}
-                            disabled={isTyping}
-                            style={{
-                                background: isTyping ? 
-                                    'rgba(255, 255, 255, 0.3)' : 
-                                    'linear-gradient(135deg, #22c55e, #f97316)',
-                                color: 'white',
-                                border: 'none',
-                                padding: '14px 28px',
-                                borderRadius: '25px',
-                                cursor: isTyping ? 'default' : 'pointer',
-                                fontSize: '14px',
-                                fontWeight: '600',
-                                boxShadow: isTyping ? 
-                                    'none' : 
-                                    '0 4px 20px rgba(34, 197, 94, 0.3)',
-                                opacity: isTyping ? 0.7 : 1,
-                                transition: 'all 0.3s ease',
-                                minWidth: '80px',
-                                backdropFilter: 'blur(10px)',
-                                border: '1px solid rgba(255, 255, 255, 0.2)',
-                                textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)'
-                            }}
-                            className="send-button"
-                            onMouseOver={(e) => {
-                                if (!isTyping) {
-                                    e.target.style.transform = 'translateY(-2px) scale(1.05)';
-                                    e.target.style.boxShadow = '0 8px 30px rgba(34, 197, 94, 0.4)';
-                                }
-                            }}
-                            onMouseOut={(e) => {
-                                if (!isTyping) {
-                                    e.target.style.transform = 'translateY(0) scale(1)';
-                                    e.target.style.boxShadow = '0 4px 20px rgba(34, 197, 94, 0.3)';
-                                }
-                            }}
-                        >
-                            Send
-                        </button>
+                    <div className="p-4 bg-white/40 backdrop-blur-sm border-t border-white/20 rounded-b-2xl">
+                        <div className="flex gap-3 items-center">
+                            <input
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => setInputValue(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && !isTyping && handleSend()}
+                                placeholder="Type your message..."
+                                className="flex-1 px-4 py-3 rounded-full bg-white/60 backdrop-blur-sm border border-white/30 text-gray-800 placeholder-gray-400 text-sm outline-none focus:ring-2 focus:ring-[#10B981]/30 focus:border-[#10B981]/30 shadow-inner transition-all duration-200"
+                            />
+                            <button
+                                onClick={() => handleSend()}
+                                disabled={isTyping}
+                                className={`px-6 py-3 rounded-full text-white text-sm font-semibold transition-all duration-300 shadow-md ${
+                                    isTyping 
+                                        ? 'bg-gray-400 cursor-not-allowed opacity-70' 
+                                        : 'bg-gradient-to-r from-[#10B981] to-[#F97316] hover:scale-105 hover:shadow-lg cursor-pointer'
+                                }`}
+                            >
+                                Send
+                            </button>
+                        </div>
                     </div>
                 )}
-
-                {/* Styles */}
-                <style jsx>{`
-                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-                    
-                    @keyframes typingAnimation {
-                        0%, 100% { 
-                            opacity: 0.4;
-                            transform: scale(0.8);
-                        }
-                        50% { 
-                            opacity: 1;
-                            transform: scale(1);
-                        }
-                    }
-                    
-                    .typing-dot {
-                        width: 8px;
-                        height: 8px;
-                        background: linear-gradient(135deg, #22c55e, #f97316);
-                        border-radius: 50%;
-                        display: inline-block;
-                        margin: 0 2px;
-                        animation: typingAnimation 1.4s infinite;
-                    }
-                    
-                    .typing-dot:nth-child(1) { animation-delay: 0s; }
-                    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-                    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-                    
-                    .chat-input::placeholder {
-                        color: rgba(255, 255, 255, 0.6);
-                    }
-                    
-                    .chat-input:focus {
-                        border-color: rgba(255, 255, 255, 0.5);
-                        box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(255, 255, 255, 0.2);
-                        background-color: rgba(255, 255, 255, 0.25);
-                    }
-                    
-                    @media (max-width: 768px) {
-                        input, button {
-                            font-size: 16px !important;
-                        }
-                    }
-                    
-                    /* Custom scrollbar */
-                    div::-webkit-scrollbar {
-                        width: 4px;
-                    }
-                    
-                    div::-webkit-scrollbar-track {
-                        background: rgba(255, 255, 255, 0.1);
-                        border-radius: 2px;
-                    }
-                    
-                    div::-webkit-scrollbar-thumb {
-                        background: rgba(255, 255, 255, 0.3);
-                        border-radius: 2px;
-                    }
-                    
-                    div::-webkit-scrollbar-thumb:hover {
-                        background: rgba(255, 255, 255, 0.5);
-                    }
-                `}</style>
             </div>
         </>
     );
