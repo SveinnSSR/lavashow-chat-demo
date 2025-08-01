@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { theme } from '../styles/theme';
-import MessageFormatter from './MessageFormatter';
 
 const ChatWidget = ({ 
-    webhookUrl = 'https://lavashow-chat-2024.vercel.app/chat', // Your deployed backend
+    webhookUrl = 'https://lavashow-chat-2024.vercel.app/chat',
     apiKey, 
-    language = 'en' // Default to English for showcase
+    language = 'en'
 }) => {
     const messagesEndRef = useRef(null);
     const [isMinimized, setIsMinimized] = useState(true);
@@ -18,12 +16,10 @@ const ChatWidget = ({
     const [sessionId, setSessionId] = useState('');
     const [showTimeButtons, setShowTimeButtons] = useState(false);
     const [timeOptions, setTimeOptions] = useState([]);
-    // Add window width tracking for responsive design
     const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
     
     // Initialize session ID on component mount
     useEffect(() => {
-        // Create a unique session ID for this conversation
         setSessionId(`session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`);
     }, []);
 
@@ -56,26 +52,29 @@ const ChatWidget = ({
                     height: '30px',
                     borderRadius: '50%',
                     marginTop: '4px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                    background: 'linear-gradient(135deg, #10b981, #f97316)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: 'white',
                     fontSize: '14px',
-                    fontWeight: '600'
+                    fontWeight: '600',
+                    border: '2px solid rgba(255, 255, 255, 0.3)'
                 }}
             >
+                S
             </div>
             <div style={{
                 padding: '12px 16px',
                 borderRadius: '16px',
-                backgroundColor: '#f8fafc',
+                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(8px)',
                 display: 'flex',
                 gap: '4px',
                 alignItems: 'center',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
-                border: '1px solid rgba(0,0,0,0.05)'
+                boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
             }}>
                 <span className="typing-dot"></span>
                 <span className="typing-dot"></span>
@@ -88,7 +87,7 @@ const ChatWidget = ({
         <button
             onClick={onClick}
             style={{
-                background: 'linear-gradient(135deg, #14b8a6, #0891b2)',
+                background: 'linear-gradient(135deg, #10b981, #f97316)',
                 color: 'white',
                 border: 'none',
                 padding: '12px 20px',
@@ -97,19 +96,19 @@ const ChatWidget = ({
                 cursor: 'pointer',
                 fontSize: '14px',
                 fontWeight: '600',
-                boxShadow: '0 4px 12px rgba(20, 184, 166, 0.3)',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
                 transition: 'all 0.3s ease',
                 minWidth: '120px'
             }}
             onMouseOver={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, #0f766e, #0e7490)';
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 16px rgba(20, 184, 166, 0.4)';
+                e.target.style.background = 'linear-gradient(135deg, #059669, #ea580c)';
+                e.target.style.transform = 'translateY(-2px) scale(1.05)';
+                e.target.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.4)';
             }}
             onMouseOut={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, #14b8a6, #0891b2)';
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 12px rgba(20, 184, 166, 0.3)';
+                e.target.style.background = 'linear-gradient(135deg, #10b981, #f97316)';
+                e.target.style.transform = 'translateY(0) scale(1)';
+                e.target.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.3)';
             }}
         >
             {text}
@@ -184,6 +183,10 @@ const ChatWidget = ({
         handleSend(timeOption.text);
     };
 
+    const MessageFormatter = ({ message }) => {
+        return <div style={{ whiteSpace: 'pre-wrap' }}>{message}</div>;
+    };
+
     return (
         <div style={{
             position: 'fixed',
@@ -192,15 +195,15 @@ const ChatWidget = ({
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: '#FFFFFF',
-            borderRadius: isMinimized ? '50%' : '16px',
-            boxShadow: '0 8px 32px rgba(20, 184, 166, 0.15), 0 4px 16px rgba(249, 115, 22, 0.1)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-            fontFamily: theme?.fonts?.body || "'Helvetica Neue', Arial, sans-serif",
+            backgroundColor: isMinimized ? 'transparent' : 'rgba(255, 255, 255, 0.6)',
+            backdropFilter: isMinimized ? 'none' : 'blur(12px)',
+            borderRadius: isMinimized ? '50%' : '20px',
+            boxShadow: isMinimized ? '0 8px 32px rgba(16, 185, 129, 0.2)' : '0 20px 60px rgba(0, 0, 0, 0.1), 0 8px 32px rgba(16, 185, 129, 0.1)',
+            border: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
+            fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
             overflow: 'hidden',
             transformOrigin: 'bottom right',
-            transition: 'all 0.3s ease',
-            backdropFilter: 'blur(12px)',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             zIndex: 9999,
             maxWidth: isMinimized ? 'auto' : '90vw'
         }}>
@@ -214,14 +217,33 @@ const ChatWidget = ({
                     justifyContent: isMinimized ? 'center' : 'center',
                     cursor: 'pointer',
                     gap: '12px',
-                    background: isMinimized ? 'linear-gradient(135deg, #14b8a6, #f97316)' : 'linear-gradient(135deg, #f8fafc, #ffffff)',
+                    background: isMinimized ? 
+                        'linear-gradient(135deg, #10b981, #f97316)' : 
+                        'linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6))',
+                    backdropFilter: isMinimized ? 'none' : 'blur(8px)',
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
                     boxSizing: 'border-box',
                     flexDirection: 'column',
-                    boxShadow: isMinimized ? 'none' : '0 2px 4px rgba(0, 0, 0, 0.05)',
-                    borderBottom: isMinimized ? 'none' : '1px solid rgba(0, 0, 0, 0.1)',
-                    position: 'relative'
+                    boxShadow: isMinimized ? 
+                        '0 8px 32px rgba(16, 185, 129, 0.3)' : 
+                        '0 2px 8px rgba(0, 0, 0, 0.05)',
+                    borderBottom: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
+                    position: 'relative',
+                    borderRadius: isMinimized ? '50%' : '20px 20px 0 0',
+                    transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                    if (isMinimized) {
+                        e.currentTarget.style.transform = 'scale(1.1)';
+                        e.currentTarget.style.boxShadow = '0 12px 40px rgba(16, 185, 129, 0.4)';
+                    }
+                }}
+                onMouseOut={(e) => {
+                    if (isMinimized) {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = '0 8px 32px rgba(16, 185, 129, 0.3)';
+                    }
                 }}
             >
                 <div 
@@ -229,17 +251,19 @@ const ChatWidget = ({
                         height: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         borderRadius: '50%',
-                        boxShadow: isMinimized ? '0 2px 8px rgba(0, 0, 0, 0.2)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
-                        background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                        boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)',
+                        background: 'linear-gradient(135deg, #10b981, #f97316)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         color: 'white',
                         fontSize: isMinimized ? '20px' : '24px',
-                        fontWeight: '600',
-                        border: '2px solid rgba(255, 255, 255, 0.3)'
+                        fontWeight: '700',
+                        border: '3px solid rgba(255, 255, 255, 0.3)',
+                        transition: 'all 0.3s ease'
                     }}
                 >
+                    S
                 </div>
                 {!isMinimized && (
                     <div style={{
@@ -251,18 +275,20 @@ const ChatWidget = ({
                     }}>
                         <span style={{ 
                             color: '#1f2937',
-                            fontSize: '16px',
+                            fontSize: '18px',
                             fontWeight: '600',
+                            letterSpacing: '-0.02em'
                         }}>
                             Sóley
                         </span>
                         <span style={{ 
-                            background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                            background: 'linear-gradient(135deg, #10b981, #f97316)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
-                            fontSize: '14px',
-                            fontWeight: '600'
+                            fontSize: '12px',
+                            fontWeight: '600',
+                            letterSpacing: '0.05em'
                         }}>
                             AI ASSISTANT
                         </span>
@@ -270,11 +296,12 @@ const ChatWidget = ({
                 )}
                 {!isMinimized && (
                     <span style={{ 
-                        color: '#6b7280',
+                        color: '#9ca3af',
                         fontSize: '12px',
                         position: 'absolute',
                         right: '16px',
-                        top: '16px'
+                        top: '16px',
+                        transition: 'all 0.2s ease'
                     }}>
                         ▽
                     </span>
@@ -285,7 +312,8 @@ const ChatWidget = ({
             {!isMinimized && (
                 <div style={{
                     height: '400px',
-                    backgroundColor: 'white',
+                    backgroundColor: 'transparent',
+                    backgroundImage: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
                     overflowY: 'auto',
                     padding: '16px'
                 }}>
@@ -310,34 +338,38 @@ const ChatWidget = ({
                                             height: '30px',
                                             borderRadius: '50%',
                                             marginTop: '4px',
-                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                            background: 'linear-gradient(135deg, #14b8a6, #f97316)',
+                                            boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                                            background: 'linear-gradient(135deg, #10b981, #f97316)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             color: 'white',
                                             fontSize: '14px',
-                                            fontWeight: '600'
+                                            fontWeight: '600',
+                                            border: '2px solid rgba(255, 255, 255, 0.3)'
                                         }}
                                     >
+                                        S
                                     </div>
                                 )}
                                 <div style={{
-                                    maxWidth: '70%',
+                                    maxWidth: '75%',
                                     padding: '12px 16px',
-                                    borderRadius: '16px',
+                                    borderRadius: '18px',
                                     background: msg.type === 'user' ? 
-                                        'linear-gradient(135deg, #14b8a6, #0891b2)' : 
-                                        '#f8fafc',
+                                        'linear-gradient(135deg, #10b981, #f97316)' : 
+                                        'rgba(255, 255, 255, 0.7)',
+                                    backdropFilter: 'blur(8px)',
                                     color: msg.type === 'user' ? 'white' : '#374151',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
                                     boxShadow: msg.type === 'user' ? 
-                                        '0 4px 12px rgba(20, 184, 166, 0.3)' : 
-                                        '0 2px 8px rgba(0, 0, 0, 0.05)',
+                                        '0 4px 16px rgba(16, 185, 129, 0.3)' : 
+                                        '0 4px 16px rgba(0, 0, 0, 0.08)',
                                     border: msg.type === 'user' ? 
                                         '1px solid rgba(255, 255, 255, 0.2)' : 
-                                        '1px solid rgba(0, 0, 0, 0.05)'
+                                        '1px solid rgba(255, 255, 255, 0.2)',
+                                    transition: 'all 0.2s ease'
                                 }}>
                                     {msg.type === 'bot' ? (
                                         <MessageFormatter message={msg.content} />
@@ -358,9 +390,11 @@ const ChatWidget = ({
                             gap: '8px',
                             marginTop: '16px',
                             padding: '16px',
-                            background: 'linear-gradient(135deg, #f0fdfa, #fef3e2)',
-                            borderRadius: '12px',
-                            border: '1px solid rgba(20, 184, 166, 0.2)'
+                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(249, 115, 22, 0.1))',
+                            backdropFilter: 'blur(8px)',
+                            borderRadius: '16px',
+                            border: '1px solid rgba(255, 255, 255, 0.3)',
+                            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.05)'
                         }}>
                             <p style={{
                                 margin: '0 0 8px 0',
@@ -373,7 +407,8 @@ const ChatWidget = ({
                             <div style={{
                                 display: 'flex',
                                 gap: '8px',
-                                justifyContent: 'center'
+                                justifyContent: 'center',
+                                flexWrap: 'wrap'
                             }}>
                                 {timeOptions.map((option, index) => (
                                     <TimeButton
@@ -395,9 +430,11 @@ const ChatWidget = ({
             {/* Input area */}
             {!isMinimized && (
                 <div style={{
-                    padding: '12px 16px',
-                    background: 'linear-gradient(135deg, #f8fafc, #ffffff)',
-                    borderTop: '1px solid #e5e7eb',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6))',
+                    backdropFilter: 'blur(8px)',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+                    borderRadius: '0 0 20px 20px',
                     display: 'flex',
                     gap: '8px'
                 }}>
@@ -406,15 +443,18 @@ const ChatWidget = ({
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={(e) => e.key === 'Enter' && !isTyping && handleSend()}
-                        placeholder=""
+                        placeholder="Type your message..."
                         style={{
                             flex: 1,
-                            padding: '10px 16px',
-                            borderRadius: '24px',
-                            border: '2px solid #e5e7eb',
+                            padding: '12px 16px',
+                            borderRadius: '25px',
+                            border: '2px solid rgba(255, 255, 255, 0.3)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                            backdropFilter: 'blur(4px)',
                             outline: 'none',
                             fontSize: '14px',
-                            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                            color: '#374151',
+                            boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.05)',
                             transition: 'all 0.3s ease'
                         }}
                         className="chat-input"
@@ -425,49 +465,69 @@ const ChatWidget = ({
                         style={{
                             background: isTyping ? 
                                 'linear-gradient(135deg, #9ca3af, #6b7280)' : 
-                                'linear-gradient(135deg, #14b8a6, #f97316)',
+                                'linear-gradient(135deg, #10b981, #f97316)',
                             color: 'white',
                             border: 'none',
-                            padding: '10px 20px',
-                            borderRadius: '24px',
+                            padding: '12px 24px',
+                            borderRadius: '25px',
                             cursor: isTyping ? 'default' : 'pointer',
                             fontSize: '14px',
                             fontWeight: '600',
                             boxShadow: isTyping ? 
                                 'none' : 
-                                '0 4px 12px rgba(20, 184, 166, 0.3)',
+                                '0 4px 16px rgba(16, 185, 129, 0.3)',
                             opacity: isTyping ? 0.7 : 1,
-                            transition: 'all 0.3s ease'
+                            transition: 'all 0.3s ease',
+                            minWidth: '70px'
                         }}
                         className="send-button"
+                        onMouseOver={(e) => {
+                            if (!isTyping) {
+                                e.target.style.background = 'linear-gradient(135deg, #059669, #ea580c)';
+                                e.target.style.transform = 'translateY(-2px) scale(1.05)';
+                                e.target.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.4)';
+                            }
+                        }}
+                        onMouseOut={(e) => {
+                            if (!isTyping) {
+                                e.target.style.background = 'linear-gradient(135deg, #10b981, #f97316)';
+                                e.target.style.transform = 'translateY(0) scale(1)';
+                                e.target.style.boxShadow = '0 4px 16px rgba(16, 185, 129, 0.3)';
+                            }
+                        }}
                     >
                         Send
                     </button>
                 </div>
             )}
 
-            {/* Add keyframes for typing animation */}
+            {/* Add keyframes for animations */}
             <style jsx>{`
+                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                
                 @keyframes typingAnimation {
                     0% {
                         opacity: 0.4;
+                        transform: scale(0.8);
                     }
                     50% {
                         opacity: 1;
+                        transform: scale(1);
                     }
                     100% {
                         opacity: 0.4;
+                        transform: scale(0.8);
                     }
                 }
                 
                 .typing-dot {
-                    width: 8px;
-                    height: 8px;
-                    background: linear-gradient(135deg, #14b8a6, #f97316);
+                    width: 6px;
+                    height: 6px;
+                    background: linear-gradient(135deg, #10b981, #f97316);
                     border-radius: 50%;
                     display: inline-block;
                     margin: 0 1px;
-                    animation: typingAnimation 1s infinite;
+                    animation: typingAnimation 1.4s infinite;
                 }
                 
                 .typing-dot:nth-child(1) {
@@ -483,15 +543,9 @@ const ChatWidget = ({
                 }
                 
                 .chat-input:focus {
-                    border-color: #14b8a6;
-                    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
-                    background-color: white;
-                }
-                
-                .send-button:hover:not(:disabled) {
-                    background: linear-gradient(135deg, #0f766e, #ea580c);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.4);
+                    border-color: rgba(16, 185, 129, 0.5);
+                    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(16, 185, 129, 0.1);
+                    background-color: rgba(255, 255, 255, 0.8);
                 }
                 
                 @media (max-width: 768px) {
@@ -499,6 +553,25 @@ const ChatWidget = ({
                     button {
                         font-size: 16px !important; /* Prevent zoom on mobile */
                     }
+                }
+                
+                /* Custom scrollbar */
+                div::-webkit-scrollbar {
+                    width: 6px;
+                }
+                
+                div::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 3px;
+                }
+                
+                div::-webkit-scrollbar-thumb {
+                    background: linear-gradient(135deg, #10b981, #f97316);
+                    border-radius: 3px;
+                }
+                
+                div::-webkit-scrollbar-thumb:hover {
+                    background: linear-gradient(135deg, #059669, #ea580c);
                 }
             `}</style>
         </div>
