@@ -69,7 +69,7 @@ const ChatWidget = ({
             <div style={{
                 padding: '12px 16px',
                 borderRadius: '16px',
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: 'rgba(255, 255, 255, 0.4)',
                 backdropFilter: 'blur(8px)',
                 display: 'flex',
                 gap: '4px',
@@ -189,14 +189,31 @@ const ChatWidget = ({
     };
 
     return (
-        <div style={{
+        <>
+            {/* Gradient background that extends around the widget */}
+            <div style={{
+                position: 'fixed',
+                bottom: '-30px',
+                right: '-30px',
+                width: isMinimized ? '120px' : '500px',
+                height: isMinimized ? '120px' : '650px',
+                background: 'linear-gradient(135deg, #6DD5ED 0%, #50A3A2 30%, #F7C59F 70%, #FBB03B 100%)',
+                borderRadius: '30px',
+                opacity: isMinimized ? '0.8' : '1',
+                filter: 'blur(1px)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                zIndex: 9998,
+                pointerEvents: 'none'
+            }} />
+            
+            <div style={{
             position: 'fixed',
             bottom: '20px',
             right: '20px',
             width: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : '400px',
             height: isMinimized ? (windowWidth <= 768 ? '60px' : '70px') : 'auto',
             maxHeight: isMinimized ? 'auto' : 'calc(100vh - 40px)',
-            backgroundColor: isMinimized ? 'transparent' : 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: isMinimized ? 'transparent' : 'rgba(255, 255, 255, 0.25)',
             backdropFilter: isMinimized ? 'none' : 'blur(12px)',
             borderRadius: isMinimized ? '50%' : '16px',
             boxShadow: isMinimized ? 
@@ -222,7 +239,7 @@ const ChatWidget = ({
                     gap: '12px',
                     background: isMinimized ? 
                         'linear-gradient(135deg, #10B981, #F97316)' : 
-                        'rgba(255, 255, 255, 0.4)',
+                        'rgba(255, 255, 255, 0.2)',
                     backdropFilter: isMinimized ? 'none' : 'blur(8px)',
                     width: '100%',
                     height: isMinimized ? '100%' : 'auto',
@@ -261,19 +278,18 @@ const ChatWidget = ({
                         marginTop: '4px'
                     }}>
                         <span style={{ 
-                            color: '#374151',
+                            color: 'white',
                             fontSize: '16px',
                             fontWeight: '600',
+                            textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)'
                         }}>
                             Sóley
                         </span>
                         <span style={{ 
-                            background: 'linear-gradient(135deg, #10B981, #F97316)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text',
+                            color: 'rgba(255, 255, 255, 0.9)',
                             fontSize: '14px',
-                            fontWeight: '600'
+                            fontWeight: '600',
+                            textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                         }}>
                             AI ASSISTANT
                         </span>
@@ -281,7 +297,7 @@ const ChatWidget = ({
                 )}
                 {!isMinimized && (
                     <span style={{ 
-                        color: '#6b7280',
+                        color: 'rgba(255, 255, 255, 0.7)',
                         fontSize: '12px',
                         position: 'absolute',
                         right: '16px',
@@ -340,9 +356,9 @@ const ChatWidget = ({
                                     borderRadius: '16px',
                                     background: msg.type === 'user' ? 
                                         'linear-gradient(135deg, #10B981, #F97316)' : 
-                                        'rgba(255, 255, 255, 0.7)',
+                                        'rgba(255, 255, 255, 0.4)',
                                     backdropFilter: 'blur(8px)',
-                                    color: msg.type === 'user' ? 'white' : '#374151',
+                                    color: msg.type === 'user' ? 'white' : 'white',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
                                     boxShadow: msg.type === 'user' ? 
@@ -371,14 +387,14 @@ const ChatWidget = ({
                             gap: '8px',
                             marginTop: '16px',
                             padding: '16px',
-                            background: 'rgba(255, 255, 255, 0.4)',
+                            background: 'rgba(255, 255, 255, 0.2)',
                             backdropFilter: 'blur(8px)',
                             borderRadius: '12px',
                             border: '1px solid rgba(255, 255, 255, 0.3)'
                         }}>
                             <p style={{
                                 margin: '0 0 8px 0',
-                                color: '#374151',
+                                color: 'white',
                                 fontSize: '14px',
                                 fontWeight: '600'
                             }}>
@@ -410,7 +426,7 @@ const ChatWidget = ({
             {!isMinimized && (
                 <div style={{
                     padding: '12px 16px',
-                    background: 'rgba(255, 255, 255, 0.4)',
+                    background: 'rgba(255, 255, 255, 0.2)',
                     backdropFilter: 'blur(8px)',
                     borderTop: '1px solid rgba(255, 255, 255, 0.2)',
                     borderRadius: '0 0 16px 16px',
@@ -428,11 +444,11 @@ const ChatWidget = ({
                             padding: '10px 16px',
                             borderRadius: '24px',
                             border: '1px solid rgba(255, 255, 255, 0.3)',
-                            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.3)',
                             backdropFilter: 'blur(4px)',
                             outline: 'none',
                             fontSize: '14px',
-                            color: '#374151',
+                            color: 'white',
                             boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.05)',
                             transition: 'all 0.3s ease'
                         }}
@@ -523,6 +539,7 @@ const ChatWidget = ({
                 }
             `}</style>
         </div>
+        </>
     );
 };
 
