@@ -55,7 +55,7 @@ const ChatWidget = ({
                     borderRadius: '50%',
                     marginTop: '4px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                    background: 'linear-gradient(135deg, #10B981, #F97316)',
+                    background: 'linear-gradient(135deg, #6DD5ED, #F7C59F)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -88,7 +88,7 @@ const ChatWidget = ({
         <button
             onClick={onClick}
             style={{
-                background: 'linear-gradient(135deg, #10B981, #F97316)',
+                background: 'linear-gradient(135deg, #6DD5ED, #F7C59F)',
                 color: 'white',
                 border: 'none',
                 padding: '12px 20px',
@@ -97,19 +97,19 @@ const ChatWidget = ({
                 cursor: 'pointer',
                 fontSize: '14px',
                 fontWeight: '600',
-                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                boxShadow: '0 4px 12px rgba(109, 213, 237, 0.3)',
                 transition: 'all 0.3s ease',
                 minWidth: '120px'
             }}
             onMouseOver={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, #059669, #ea580c)';
+                e.target.style.background = 'linear-gradient(135deg, #50A3A2, #FBB03B)';
                 e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 6px 16px rgba(16, 185, 129, 0.4)';
+                e.target.style.boxShadow = '0 6px 16px rgba(109, 213, 237, 0.4)';
             }}
             onMouseOut={(e) => {
-                e.target.style.background = 'linear-gradient(135deg, #10B981, #F97316)';
+                e.target.style.background = 'linear-gradient(135deg, #6DD5ED, #F7C59F)';
                 e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.3)';
+                e.target.style.boxShadow = '0 4px 12px rgba(109, 213, 237, 0.3)';
             }}
         >
             {text}
@@ -195,8 +195,8 @@ const ChatWidget = ({
                 position: 'fixed',
                 bottom: '-30px',
                 right: '-30px',
-                width: isMinimized ? '120px' : '500px',
-                height: isMinimized ? '120px' : '650px',
+                width: isMinimized ? '140px' : '600px',
+                height: isMinimized ? '140px' : '750px',
                 background: 'linear-gradient(135deg, #6DD5ED 0%, #50A3A2 30%, #F7C59F 70%, #FBB03B 100%)',
                 borderRadius: '30px',
                 opacity: isMinimized ? '0.8' : '1',
@@ -217,7 +217,7 @@ const ChatWidget = ({
             backdropFilter: isMinimized ? 'none' : 'blur(12px)',
             borderRadius: isMinimized ? '50%' : '16px',
             boxShadow: isMinimized ? 
-                '0 8px 32px rgba(16, 185, 129, 0.15), 0 4px 16px rgba(249, 115, 22, 0.1)' : 
+                '0 8px 32px rgba(109, 213, 237, 0.15), 0 4px 16px rgba(247, 197, 159, 0.1)' : 
                 '0 25px 50px rgba(0, 0, 0, 0.15)',
             border: isMinimized ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
             fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
@@ -257,7 +257,7 @@ const ChatWidget = ({
                         width: isMinimized ? (windowWidth <= 768 ? '40px' : '50px') : '60px',
                         borderRadius: '50%',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                        background: 'linear-gradient(135deg, #10B981, #F97316)',
+                        background: 'linear-gradient(135deg, #6DD5ED, #F7C59F)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -338,7 +338,7 @@ const ChatWidget = ({
                                             borderRadius: '50%',
                                             marginTop: '4px',
                                             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                                            background: 'linear-gradient(135deg, #10B981, #F97316)',
+                                            background: 'linear-gradient(135deg, #6DD5ED, #F7C59F)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
@@ -355,14 +355,14 @@ const ChatWidget = ({
                                     padding: '12px 16px',
                                     borderRadius: '16px',
                                     background: msg.type === 'user' ? 
-                                        'linear-gradient(135deg, #10B981, #F97316)' : 
-                                        'rgba(255, 255, 255, 0.4)',
+                                        'linear-gradient(135deg, #6DD5ED, #F7C59F)' : 
+                                        'rgba(255, 255, 255, 0.9)',
                                     backdropFilter: 'blur(8px)',
-                                    color: msg.type === 'user' ? 'white' : 'white',
+                                    color: msg.type === 'user' ? 'white' : '#1f2937',
                                     fontSize: '14px',
                                     lineHeight: '1.5',
                                     boxShadow: msg.type === 'user' ? 
-                                        '0 4px 12px rgba(16, 185, 129, 0.3)' : 
+                                        '0 4px 12px rgba(109, 213, 237, 0.3)' : 
                                         '0 2px 8px rgba(0, 0, 0, 0.05)',
                                     border: msg.type === 'user' ? 
                                         '1px solid rgba(255, 255, 255, 0.2)' : 
@@ -460,7 +460,7 @@ const ChatWidget = ({
                         style={{
                             background: isTyping ? 
                                 'linear-gradient(135deg, #9ca3af, #6b7280)' : 
-                                'linear-gradient(135deg, #10B981, #F97316)',
+                                'linear-gradient(135deg, #6DD5ED, #F7C59F)',
                             color: 'white',
                             border: 'none',
                             padding: '10px 20px',
@@ -470,7 +470,7 @@ const ChatWidget = ({
                             fontWeight: '600',
                             boxShadow: isTyping ? 
                                 'none' : 
-                                '0 4px 12px rgba(16, 185, 129, 0.3)',
+                                '0 4px 12px rgba(109, 213, 237, 0.3)',
                             opacity: isTyping ? 0.7 : 1,
                             transition: 'all 0.3s ease'
                         }}
@@ -500,7 +500,7 @@ const ChatWidget = ({
                 .typing-dot {
                     width: 8px;
                     height: 8px;
-                    background: linear-gradient(135deg, #10B981, #F97316);
+                    background: linear-gradient(135deg, #6DD5ED, #F7C59F);
                     border-radius: 50%;
                     display: inline-block;
                     margin: 0 1px;
@@ -520,15 +520,15 @@ const ChatWidget = ({
                 }
                 
                 .chat-input:focus {
-                    border-color: rgba(16, 185, 129, 0.5);
-                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(16, 185, 129, 0.1);
+                    border-color: rgba(109, 213, 237, 0.5);
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 0 0 3px rgba(109, 213, 237, 0.1);
                     background-color: rgba(255, 255, 255, 0.8);
                 }
                 
                 .send-button:hover:not(:disabled) {
-                    background: linear-gradient(135deg, #059669, #ea580c);
+                    background: linear-gradient(135deg, #50A3A2, #FBB03B);
                     transform: translateY(-2px);
-                    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+                    box-shadow: 0 6px 16px rgba(109, 213, 237, 0.4);
                 }
                 
                 @media (max-width: 768px) {
